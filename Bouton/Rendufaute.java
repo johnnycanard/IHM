@@ -35,6 +35,10 @@ public class Rendufaute extends JFrame {
 
         this.pann = panno;
 
+	final String sok = s;
+	final int nok = n;
+	final String cok = c;
+	
         Joueur fautif = pann.getEquipe(c).getJoueur(n);
 
         if (s.equals("FAUTE")) {
@@ -78,7 +82,7 @@ public class Rendufaute extends JFrame {
         f.setFont(fontFaute);
         f.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(s, n, c);
+                annulerFaute(sok, nok, cok);
                 fermer();
                 if (couleur.equals("RED")) {
                     Typefaute tf = new Typefaute(num, "RED", pann);
@@ -96,7 +100,7 @@ public class Rendufaute extends JFrame {
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(s, n, c);
+                annulerFaute(sok, nok, cok);
                 fermer();
                 if (couleur.equals("RED")) {
                     NumeroFaute nf = new NumeroFaute(type, "RED", pann);
@@ -120,7 +124,7 @@ public class Rendufaute extends JFrame {
         coul.setForeground(Color.WHITE);
         coul.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(s, n, c);
+                annulerFaute(sok, nok, cok);
                 fermer();
                 Couleurfaute cf = new Couleurfaute(type, num, pann);
             }

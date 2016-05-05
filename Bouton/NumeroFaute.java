@@ -58,10 +58,11 @@ public class NumeroFaute extends JFrame {
             j.setFont(font);
             j.setBackground(Color.WHITE);
             j.setPreferredSize(new Dimension(X / 3, Y / 2));
+	    final Joueur j1ok = j1;
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute(type, j1.getNum(), couleur, pann);
+                    Rendufaute r = new Rendufaute(type, j1ok.getNum(), couleur, pann);
                 }
             });
             all.add(j);

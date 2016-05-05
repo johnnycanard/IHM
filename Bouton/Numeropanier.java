@@ -54,10 +54,11 @@ public class Numeropanier extends JFrame {
             j.setFont(font);
             j.setBackground(Color.WHITE);
             j.setPreferredSize(new Dimension(X / 3, Y / 2));
+	    final Joueur j1ok = j1;
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(nombreok, j1.getNum(), cok, pann);
+                    Rendupanier rp = new Rendupanier(nombreok, j1ok.getNum(), cok, pann);
 
                 }
             });

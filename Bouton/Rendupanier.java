@@ -75,7 +75,7 @@ public class Rendupanier extends JFrame {
         f.setFont(fontPoint);
         f.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombre, n, c);
+                annulerPanier(nombreok, nok, cok);
                 fermer();
                 if (cok.equals("RED")) {
                     Nombrepoints np = new Nombrepoints(nok, "RED", pann);
@@ -93,7 +93,7 @@ public class Rendupanier extends JFrame {
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombre, n, c);
+                annulerPanier(nombreok, nok, cok);
                 fermer();
                 if (cok.equals("RED")) {
                     Numeropanier np = new Numeropanier(nombreok, "RED", pann);
@@ -117,7 +117,7 @@ public class Rendupanier extends JFrame {
         coul.setForeground(Color.WHITE);
         coul.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombre, n, c);
+                annulerPanier(nombreok, nok, cok);
                 fermer();
                 Couleurpanier cp = new Couleurpanier(nombreok, nok, pann);
             }
