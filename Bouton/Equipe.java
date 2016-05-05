@@ -54,7 +54,7 @@ public class Equipe {
         }
         System.out.println("Joueur numéro " + Integer.toString(n) 
                 + "pas sur le terrain");
-                return null;    
+	return null;    
     }
 
     public int getPoints() {
