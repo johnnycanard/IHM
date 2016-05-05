@@ -65,7 +65,7 @@ public class Menu extends JFrame {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute rf = new Rendufaute("FAUTE", 4, "RED", pann);
+                Rendufaute rf = new Rendufaute("FAUTE", 4, "GREEN", pann);
             }
         });
 
@@ -77,7 +77,7 @@ public class Menu extends JFrame {
         b3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(1,1, "RED", pann);
+                Rendupanier rp = new Rendupanier(1,1, "GREEN", pann);
             }
         });
        
@@ -89,7 +89,7 @@ public class Menu extends JFrame {
         b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Renduchangement rp = new Renduchangement(1,24, "RED", pann);
+                Renduchangement rp = new Renduchangement(1,24, "GREEN", pann);
             }
         });
         
@@ -113,7 +113,7 @@ public class Menu extends JFrame {
         b6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Tempsmort tm = new Tempsmort("RED", pann);
+                Tempsmort tm = new Tempsmort("GREEN", pann);
             }
         });
         

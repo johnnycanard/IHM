@@ -96,17 +96,28 @@ public class Renduchangement extends JFrame {
         });
 
         // Couleur d'équipe
-        JButton coul = new JButton(c);
-        if (couleur.equals("RED")) {
-            coul.setBackground(Color.RED);
+        JButton b2 = new JButton("AUTRE");
+        b2.setForeground(Color.WHITE);
+        if (c.equals("RED")) {
+            b2.setBackground(Color.RED);
+            b2.setText("ROUGE");
+        } else if (c.equals("BLUE")) {
+            b2.setBackground(Color.BLUE);
+            b2.setText("BLEU");
+        } else if (c.equals("GREEN")) {
+            b2.setBackground(Color.GREEN);
+            b2.setText("VERT");
+        } else if (c.equals("BLACK")) {
+            b2.setBackground(Color.BLACK);
+            b2.setText("NOIR");
         } else {
-            coul.setBackground(Color.BLUE);
+            b2.setBackground(Color.WHITE);
+            b2.setForeground(Color.BLACK);
+            b2.setText("BLANC");
         }
-
-        coul.setPreferredSize(new Dimension(X, Y /2 -20 ));
-        coul.setFont(fontCoul);
-        coul.setForeground(Color.WHITE);
-        coul.addActionListener(new ActionListener() {
+        b2.setFont(fontCoul);
+        b2.setPreferredSize(new Dimension(X, Y/2));
+        b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 Couleurchangement cc = new Couleurchangement(sortant, entrant, pann);
@@ -128,7 +139,7 @@ public class Renduchangement extends JFrame {
         JPanel all = new JPanel();
         all.add(entre);
         all.add(sort);
-        all.add(coul);
+        all.add(b2);
 	all.add(retour);
         all.setBackground(Color.WHITE);
 

@@ -101,7 +101,7 @@ public class Panneau extends JPanel {
     }
 
     public void defLocaux() {
-        locaux = new Equipe("ASM", "RED");
+        locaux = new Equipe("Espage", "WHITE");
 
         Joueur zidane = new Joueur(10, "Zidane");
         locaux.ajouterJoueur(zidane);
@@ -138,7 +138,7 @@ public class Panneau extends JPanel {
     }
 
     public void defVisiteurs() {
-        visiteurs = new Equipe("OM", "BLUE");
+        visiteurs = new Equipe("Lituanie", "GREEN");
 
         Joueur olivier = new Joueur(10, "Olivier");
         visiteurs.ajouterJoueur(olivier);

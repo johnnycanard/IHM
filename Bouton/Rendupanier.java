@@ -80,8 +80,12 @@ public class Rendupanier extends JFrame {
                 fermer();
                 if (cok.equals("RED")) {
                     Nombrepoints np = new Nombrepoints(nok, "RED", pann);
-                } else {
+                } else if (cok.equals("BLUE")){
                     Nombrepoints np = new Nombrepoints(nok, "BLUE", pann);
+                } else if (cok.equals("GREEN")){
+                    Nombrepoints np = new Nombrepoints(nok, "GREEN", pann);
+                }else if (cok.equals("WHITE")){
+                    Nombrepoints np = new Nombrepoints(nok, "WHITE", pann);
                 }
                 pann.repaint();
             }
@@ -98,25 +102,40 @@ public class Rendupanier extends JFrame {
                 fermer();
                 if (cok.equals("RED")) {
                     Numeropanier np = new Numeropanier(nombreok, "RED", pann);
-                } else {
+                } else if (cok.equals("BLUE")){
                     Numeropanier np = new Numeropanier(nombreok, "BLUE", pann);
+                } else if (cok.equals("GREEN")){
+                    Numeropanier np = new Numeropanier(nombreok, "GREEN", pann);
+                } else if (cok.equals("WHITE")){
+                    Numeropanier np = new Numeropanier(nombreok, "WHITE", pann);
                 }
                 pann.repaint();
             }
         });
 
         // Couleur d'équipe
-        JButton coul = new JButton(cok);
-        if (cok.equals("RED")) {
-            coul.setBackground(Color.RED);
+        JButton b2 = new JButton("AUTRE");
+        b2.setForeground(Color.WHITE);
+        if (c.equals("RED")) {
+            b2.setBackground(Color.RED);
+            b2.setText("ROUGE");
+        } else if (c.equals("BLUE")) {
+            b2.setBackground(Color.BLUE);
+            b2.setText("BLEU");
+        } else if (c.equals("GREEN")) {
+            b2.setBackground(Color.GREEN);
+            b2.setText("VERT");
+        } else if (c.equals("BLACK")) {
+            b2.setBackground(Color.BLACK);
+            b2.setText("NOIR");
         } else {
-            coul.setBackground(Color.BLUE);
+            b2.setBackground(Color.WHITE);
+            b2.setForeground(Color.BLACK);
+            b2.setText("BLANC");
         }
-
-        coul.setPreferredSize(new Dimension(X, Y / 2 - 20));
-        coul.setFont(fontCoul);
-        coul.setForeground(Color.WHITE);
-        coul.addActionListener(new ActionListener() {
+        b2.setFont(fontCoul);
+        b2.setPreferredSize(new Dimension(X, Y / 2));
+        b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 annulerPanier(nombreok, nok, cok);
                 fermer();
@@ -141,7 +160,7 @@ public class Rendupanier extends JFrame {
         JPanel all = new JPanel();
         all.add(f);
         all.add(numero);
-        all.add(coul);
+        all.add(b2);
         all.add(retour);
         all.setBackground(Color.WHITE);
 

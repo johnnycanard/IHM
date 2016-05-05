@@ -54,12 +54,6 @@ public class Fenetre1 extends JFrame {
  
 	this.setVisible(true);
 
-        pann.defLocaux();
-        pann.defVisiteurs();
-        /*
-        if (pann.getVisiteurs() == null)
-            System.out.println("mauvaise initialisation");
-        */
 	chrono();
     }
     

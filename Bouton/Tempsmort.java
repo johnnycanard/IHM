@@ -48,15 +48,21 @@ public class Tempsmort extends JFrame {
         // Moins de temps
         JButton b1 = new JButton("<html>Temps-Mort<br>         " + c + "</html>");
         b1.setPreferredSize(new Dimension(X, Y-20));
+        b1.setForeground(Color.WHITE);
         if (c.equals("RED")) {
             b1.setBackground(Color.RED);
-            b1.setText("<html>Temps-Mort<br>      Rouge </html>");
-        }
-        else {
+            b1.setText("<html>Temps-Mort<br> Rouge </html>");
+        } else if (c.equals("BLUE")) {
             b1.setBackground(Color.BLUE);
-            b1.setText("<html>Temps-Mort<br>         BLEU </html>");
-        }
-        b1.setForeground(Color.WHITE);
+            b1.setText("<html>Temps-Mort<br> BLEU </html>");
+        } else if (c.equals("GREEN")) {
+            b1.setBackground(Color.GREEN);
+            b1.setText("<html>Temps-Mort<br> VERT </html>");
+        } else if (c.equals("WHITE")) {
+            b1.setBackground(Color.WHITE);
+            b1.setText("<html>Temps-Mort<br> BLANC </html>");
+            b1.setForeground(Color.BLACK);
+        } 
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {

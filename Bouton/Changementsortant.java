@@ -74,10 +74,17 @@ public class Changementsortant extends JFrame {
         Font changeFont = new Font("Couleur", Font.BOLD, 60);
         j.setFont(changeFont);
 
-        if (couleur.equals("RED")) {
+        if (c.equals("RED")) {
             j.setBackground(Color.RED);
-        } else {
+        } else if (c.equals("BLUE")) {
             j.setBackground(Color.BLUE);
+        } else if (c.equals("GREEN")) {
+            j.setBackground(Color.GREEN);
+        } else if (c.equals("BLACK")) {
+            j.setBackground(Color.BLACK);
+        } else {
+            j.setBackground(Color.WHITE);
+            j.setForeground(Color.BLACK);
         }
         
         j.setPreferredSize(new Dimension(X / 3, Y / 2));
