@@ -19,7 +19,7 @@ public class Fenetre1 extends JFrame {
 
 
     /* ---- Avec boutonS ---- */
-    private boolean chrono = true;
+    //private boolean chrono = true;
     private JPanel container = new JPanel();
     /* --------------------- */
 
@@ -35,43 +35,31 @@ public class Fenetre1 extends JFrame {
 	tps.setPreferredSize(new Dimension(50, 50));
 	tps.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent event) {
-		    chrono = !chrono;
-		    if (chrono) 
+		    pann.setBool(!pann.getBool());
+		    if (pann.getBool()) 
 			tps.setText("Arret chrono");
-		    else if (!chrono) 
+		    else if (!pann.getBool()) 
 			tps.setText("Reprise chrono");
 		}
 	    }
 	    );
 
-	JButton t24 = new JButton("24");
-	t24.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent event) {
-		    pann.getChrono().setTime(24);
-		}
-	    }
-	    );
-
-	JButton t14 = new JButton("14");
-	t14.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent event) {
-		    if (pann.getChrono().getTime() <= 14)
-			pann.getChrono().setTime(14);
-		}
-	    }
-	    );	
-
 	container.setBackground(Color.WHITE);
 	container.setLayout(new BorderLayout());
 	container.add(pann, BorderLayout.CENTER);
 	container.add(tps, BorderLayout.SOUTH);
-	container.add(t24, BorderLayout.EAST);
-	container.add(t14, BorderLayout.WEST);
+        
 	this.setContentPane(container);
 	/* --------------------- */
  
 	this.setVisible(true);
 
+        pann.defLocaux();
+        pann.defVisiteurs();
+        /*
+        if (pann.getVisiteurs() == null)
+            System.out.println("mauvaise initialisation");
+        */
 	chrono();
     }
     
@@ -80,7 +68,7 @@ public class Fenetre1 extends JFrame {
     }
     
     private void chrono() {
-int QT = pann.getQT();
+        int QT = pann.getQT();
         int t24;
         int min = 1;
 	int sec = 1;
@@ -92,11 +80,13 @@ int QT = pann.getQT();
             while (pann.getChrono().getMinutes() > 0 
                     || pann.getChrono().getSec() > 0 
                     || pann.getChrono().getCentieme() > 0) {
+                
                 t24 = pann.getChrono().getTime();
                 min = pann.getChrono().getMinutes();
                 sec = pann.getChrono().getSec();
                 cen = pann.getChrono().getCentieme();
-		if (chrono) {
+                
+		if (pann.getBool()) {
 		    if (cen == 0) {
 			cen = 100;
 			if (t24 == 1)
@@ -133,6 +123,8 @@ int QT = pann.getQT();
 	    pann.getChrono().reinitChrono();
 	    QT++;
 	    pann.setQT(QT);
+            pann.getVisiteurs().reinitFautes();
+            pann.getLocaux().reinitFautes();
 	}
 	pann.setQT(1);
 	pann.repaint();

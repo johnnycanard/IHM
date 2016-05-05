@@ -47,21 +47,24 @@ public class Numeropanier extends JFrame {
         JPanel all = new JPanel();
         Font font = new Font("Joueurs", Font.BOLD, 100);
 
-        for (int i = 1; i < 6; i++) {
-            JButton j = new JButton();
-            final int k = i;
+        Equipe eq = pann.getEquipe(c);
+        
+        for (Joueur j1 : eq.getTerrain()) {
+            JButton j = new JButton(Integer.toString(j1.getNum()));
             j.setFont(font);
-            j.setText(Integer.toString(i));
             j.setBackground(Color.WHITE);
             j.setPreferredSize(new Dimension(X / 3, Y / 2));
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(nombreok, k, cok, pann);
+                    Rendupanier rp = new Rendupanier(nombreok, j1.getNum(), cok, pann);
+
                 }
             });
             all.add(j);
         }
+       
+
 
         JButton j = new JButton();
         Font changeFont = new Font("Joueurs", Font.BOLD, 20);

@@ -35,6 +35,12 @@ public class Renduchangement extends JFrame {
         
         this.pann = panno;
         
+        
+        Joueur in = pann.getEquipe(c).getJoueur(ent);
+        Joueur out = pann.getEquipe(c).getJoueur(sor);
+        pann.getEquipe(c).changement(in, out);
+        
+        
         this.sortant = sor;
         this.entrant = ent;
         this.couleur = c;

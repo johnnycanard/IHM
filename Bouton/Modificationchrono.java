@@ -56,6 +56,8 @@ public class Modificationchrono extends JFrame {
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 // Temps --
+                pann.setBool(false);
+                pann.getChrono().decr();
             }
         });
 
@@ -67,6 +69,8 @@ public class Modificationchrono extends JFrame {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 // Temps ++
+                pann.setBool(false);
+                pann.getChrono().incr();
             }
         });
 

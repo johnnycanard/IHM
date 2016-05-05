@@ -77,7 +77,7 @@ public class Menu extends JFrame {
         b3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(0,0, "RED", pann);
+                Rendupanier rp = new Rendupanier(1,1, "RED", pann);
             }
         });
        
@@ -89,7 +89,7 @@ public class Menu extends JFrame {
         b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Renduchangement rp = new Renduchangement(0,0, "RED", pann);
+                Renduchangement rp = new Renduchangement(1,24, "RED", pann);
             }
         });
         

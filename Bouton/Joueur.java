@@ -31,6 +31,10 @@ public class Joueur {
         this.nom = s;
         this.totalFautes = 0;
     }
+    
+    public int getTotalFautes() {
+        return this.totalFautes;
+    }
 
     public String getNom() {
         return this.nom;
@@ -47,7 +51,31 @@ public class Joueur {
     public int getNb1Point() {
         return this.nb1point;
     }
+    
+    public void incr1Point() {
+        this.nb1point++;
+    }
+    
+    public void decr1Point() {
+        this.nb1point--;
+    }
+    
+    public void incr2Points() {
+        this.nb2points++;
+    }
+    
+    public void decr2Points() {
+        this.nb2points--;
+    }
 
+    public void incr3Points() {
+        this.nb3points++;
+    }
+  
+    public void decr3Points() {
+        this.nb3points--;
+    }    
+    
     public int getNb2Points() {
         return this.nb2points;
     }
@@ -70,6 +98,16 @@ public class Joueur {
             return false;
         }
     }
+    
+    public boolean decrFautes() {
+        this.nbfautes--;
+        this.totalFautes--;
+        if (this.totalFautes >= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public boolean incrTech() {
         this.nbtechniques++;
@@ -82,8 +120,18 @@ public class Joueur {
         }
     }
 
+    public boolean decrTech() {
+        this.nbtechniques--;
+        this.totalFautes--;
+        if (this.totalFautes >= 5) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public boolean incrSport() {
-        this.nbtechniques++;
+        this.nbsportives++;
         this.totalFautes++;
         if (this.totalFautes >= 5) {
             return true;
@@ -92,6 +140,18 @@ public class Joueur {
             return false;
         }
     }
+    
+    public boolean decrSport() {
+        this.nbsportives--;
+        this.totalFautes--;
+        if (this.totalFautes >= 5) {
+            return true;
+            // Afficher num + background coul + "5 FAUTES"
+        } else {
+            return false;
+        }
+    }
+    
 
     public int getTechniques() {
         return this.nbtechniques;

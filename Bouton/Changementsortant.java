@@ -52,25 +52,22 @@ public class Changementsortant extends JFrame {
         JPanel all = new JPanel();
         Font font = new Font("Joueurs", Font.BOLD, 100);
 
-        for (int i = 1; i < 6; i++) {
-            JButton j = new JButton();
-            final int k = i;
+        Equipe eq = pann.getEquipe(c);
+        
+        for (Joueur j1 : eq.getTerrain()) {
+            JButton j = new JButton(Integer.toString(j1.getNum()));
             j.setFont(font);
-            j.setText(Integer.toString(i));
             j.setBackground(Color.WHITE);
             j.setPreferredSize(new Dimension(X / 3, Y / 2));
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    if (corr) {
-                        Renduchangement rc = new Renduchangement(k, entrant, couleur, pann);
-                    } else {
-                        Changemententrant ce = new Changemententrant(k, couleur, pann);
-                    }
+                    Renduchangement rc = new Renduchangement(j1.getNum(), ent, couleur, pann);
                 }
             });
             all.add(j);
         }
+
 
         JButton j = new JButton(c);
         Font changeFont = new Font("Couleur", Font.BOLD, 60);
