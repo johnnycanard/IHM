@@ -43,7 +43,7 @@ public class Base extends JFrame {
 
         // Creation des 2 boutons :
         JButton b1 = new JButton("14");
-        b1.setPreferredSize(new Dimension(X / 2, Y));
+        b1.setPreferredSize(new Dimension(X / 2, Y-10));
         b1.setBackground(Color.WHITE);
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
@@ -54,7 +54,7 @@ public class Base extends JFrame {
         });
 
         JButton b2 = new JButton("24");
-        b2.setPreferredSize(new Dimension(X / 2, Y));
+        b2.setPreferredSize(new Dimension(X / 2, Y-10));
         b2.setBackground(Color.WHITE);
         b2.setFont(font);
         b2.addActionListener(new ActionListener() {
@@ -63,9 +63,22 @@ public class Base extends JFrame {
             }
         });
 
+	JButton retour = new JButton("R");
+        retour.setPreferredSize(new Dimension(X , 3));
+        retour.setBackground(Color.WHITE);
+        retour.setFont(font);
+        retour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                // Temps = 24
+		fermer();
+		Menu m = new Menu();
+            }
+        });
+
         JPanel all = new JPanel();
         all.add(b1);
         all.add(b2);
+	all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();
