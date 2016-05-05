@@ -52,7 +52,7 @@ public class Rendufaute extends JFrame {
         // Creation des 3 boutons :
         // Type de faute
         JButton f = new JButton(type);
-        f.setPreferredSize(new Dimension(X / 2, Y / 2));
+        f.setPreferredSize(new Dimension(X / 2, Y / 2-20));
         f.setBackground(Color.WHITE);
         f.setFont(fontFaute);
         f.addActionListener(new ActionListener() {
@@ -69,7 +69,7 @@ public class Rendufaute extends JFrame {
 
         // Numéro de joueur
         JButton numero = new JButton(Integer.toString(num));
-        numero.setPreferredSize(new Dimension(X / 2, Y / 2));
+        numero.setPreferredSize(new Dimension(X / 2, Y / 2-20));
         numero.setBackground(Color.WHITE);
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
@@ -92,7 +92,7 @@ public class Rendufaute extends JFrame {
             coul.setBackground(Color.BLUE);
         }
 
-        coul.setPreferredSize(new Dimension(X, Y / 2));
+        coul.setPreferredSize(new Dimension(X, Y / 2-20));
         coul.setFont(fontCoul);
         coul.setForeground(Color.WHITE);
         coul.addActionListener(new ActionListener() {
@@ -102,10 +102,23 @@ public class Rendufaute extends JFrame {
             }
         });
 
+	JButton retour = new JButton("R");
+        retour.setPreferredSize(new Dimension(X , 3));
+        retour.setBackground(Color.WHITE);
+        retour.setFont(fontNum);
+        retour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                // Temps = 24
+		fermer();
+		Menu m = new Menu();
+            }
+        });
+
         JPanel all = new JPanel();
         all.add(f);
         all.add(numero);
         all.add(coul);
+	all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();

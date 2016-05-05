@@ -43,7 +43,7 @@ public class Base extends JFrame {
 
         // Creation des 2 boutons :
         JButton b1 = new JButton("14");
-        b1.setPreferredSize(new Dimension(X / 2, Y-10));
+        b1.setPreferredSize(new Dimension(X / 2, Y-37));
         b1.setBackground(Color.WHITE);
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
@@ -54,7 +54,7 @@ public class Base extends JFrame {
         });
 
         JButton b2 = new JButton("24");
-        b2.setPreferredSize(new Dimension(X / 2, Y-10));
+        b2.setPreferredSize(new Dimension(X / 2, Y-37));
         b2.setBackground(Color.WHITE);
         b2.setFont(font);
         b2.addActionListener(new ActionListener() {
