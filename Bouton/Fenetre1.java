@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class Fenetre1 extends JFrame {
 
-    private Panneau pann = new Panneau();
+    private Panneau pann;
     // Dimension de la fenêtre
     private int X = 800;
     private int Y = 800;
@@ -23,7 +23,8 @@ public class Fenetre1 extends JFrame {
     private JPanel container = new JPanel();
     /* --------------------- */
 
-    public Fenetre1(){
+    public Fenetre1(Panneau pann){
+        this.pann = pann;
 	this.setTitle("IHM Basket");
 	this.setSize(X + 100, Y + 50);
 	this.setLocationRelativeTo(null);
@@ -79,14 +80,22 @@ public class Fenetre1 extends JFrame {
     }
     
     private void chrono() {
-	int QT = pann.getQT();
-	while (QT < 5) {
-
-	    for (int i = 0; i < 60000; i++) {
-		int t24 = pann.getChrono().getTime();
-		int min = pann.getChrono().getMinutes();
-		int sec = pann.getChrono().getSec();
-		int cen = pann.getChrono().getCentieme();
+int QT = pann.getQT();
+        int t24;
+        int min = 1;
+	int sec = 1;
+	int cen = 1;
+                
+	while (QT < 5) {         
+            System.out.println("Nouveau QT");
+            
+            while (pann.getChrono().getMinutes() > 0 
+                    || pann.getChrono().getSec() > 0 
+                    || pann.getChrono().getCentieme() > 0) {
+                t24 = pann.getChrono().getTime();
+                min = pann.getChrono().getMinutes();
+                sec = pann.getChrono().getSec();
+                cen = pann.getChrono().getCentieme();
 		if (chrono) {
 		    if (cen == 0) {
 			cen = 100;
