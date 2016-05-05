@@ -22,6 +22,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class Rendupanier extends JFrame {
 
     private Panneau pann;
+    private String couleur;
 
     private JPanel content = new JPanel();
     private int X = 700;
@@ -30,24 +31,13 @@ public class Rendupanier extends JFrame {
     public Rendupanier(int nombre, int n, String c, Panneau panno) {
 
         this.pann = panno;
-
-        Joueur marqueur = pann.getEquipe(c).getJoueur(n);
-
-        if (nombre == 1) {
-            marqueur.incr1Point();
-        } else if (nombre == 2) {
-            marqueur.incr2Points();
-        } else if (nombre == 3) {
-            marqueur.incr3Points();
-        } else {
-            System.out.print(Integer.toString(nombre) + " point(s) n'est pas acceptable");
-        }
-
-        pann.getEquipe(c).comptePoints();
+        this.couleur = c;
+        
+        validerPanier(c, n, nombre);
+        
         pann.repaint();
 
         final int nok = n;
-        final String cok = c;
         final int nombreok = nombre;
 
         this.setTitle("Rendu Panier");
@@ -76,15 +66,15 @@ public class Rendupanier extends JFrame {
         f.setFont(fontPoint);
         f.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombreok, nok, cok);
+                annulerPanier(nombreok, nok, couleur);
                 fermer();
-                if (cok.equals("RED")) {
+                if (couleur.equals("RED")) {
                     Nombrepoints np = new Nombrepoints(nok, "RED", pann);
-                } else if (cok.equals("BLUE")){
+                } else if (couleur.equals("BLUE")) {
                     Nombrepoints np = new Nombrepoints(nok, "BLUE", pann);
-                } else if (cok.equals("GREEN")){
+                } else if (couleur.equals("GREEN")) {
                     Nombrepoints np = new Nombrepoints(nok, "GREEN", pann);
-                }else if (cok.equals("WHITE")){
+                } else if (couleur.equals("WHITE")) {
                     Nombrepoints np = new Nombrepoints(nok, "WHITE", pann);
                 }
                 pann.repaint();
@@ -98,15 +88,15 @@ public class Rendupanier extends JFrame {
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombreok, nok, cok);
+                annulerPanier(nombreok, nok, couleur);
                 fermer();
-                if (cok.equals("RED")) {
+                if (couleur.equals("RED")) {
                     Numeropanier np = new Numeropanier(nombreok, "RED", pann);
-                } else if (cok.equals("BLUE")){
+                } else if (couleur.equals("BLUE")) {
                     Numeropanier np = new Numeropanier(nombreok, "BLUE", pann);
-                } else if (cok.equals("GREEN")){
+                } else if (couleur.equals("GREEN")) {
                     Numeropanier np = new Numeropanier(nombreok, "GREEN", pann);
-                } else if (cok.equals("WHITE")){
+                } else if (couleur.equals("WHITE")) {
                     Numeropanier np = new Numeropanier(nombreok, "WHITE", pann);
                 }
                 pann.repaint();
@@ -137,9 +127,55 @@ public class Rendupanier extends JFrame {
         b2.setPreferredSize(new Dimension(X, Y / 2));
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerPanier(nombreok, nok, cok);
-                fermer();
-                Couleurpanier cp = new Couleurpanier(nombreok, nok, pann);
+                annulerPanier(nombreok, nok, couleur);
+                if (couleur.equals(pann.getVisiteurs().getCouleur())) {
+                    couleur = pann.getLocaux().getCouleur();
+                    if (couleur.equals("RED")) {
+                        b2.setBackground(Color.RED);
+                        b2.setText("ROUGE");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        b2.setBackground(Color.BLUE);
+                        b2.setText("BLEU");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        b2.setBackground(Color.GREEN);
+                        b2.setText("VERT");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        b2.setBackground(Color.BLACK);
+                        b2.setText("NOIR");
+                        b2.setForeground(Color.WHITE);
+                    } else {
+                        b2.setBackground(Color.WHITE);
+                        b2.setForeground(Color.BLACK);
+                        b2.setText("BLANC");
+                    }
+                } else {
+                    couleur = pann.getVisiteurs().getCouleur();
+                    if (couleur.equals("RED")) {
+                        b2.setBackground(Color.RED);
+                        b2.setText("ROUGE");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        b2.setBackground(Color.BLUE);
+                        b2.setText("BLEU");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        b2.setBackground(Color.GREEN);
+                        b2.setText("VERT");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        b2.setBackground(Color.BLACK);
+                        b2.setText("NOIR");
+                        b2.setForeground(Color.WHITE);
+                    } else {
+                        b2.setBackground(Color.WHITE);
+                        b2.setForeground(Color.BLACK);
+                        b2.setText("BLANC");
+                    }
+                }
+                validerPanier(couleur, n, nombre);
                 pann.repaint();
             }
         });
@@ -175,14 +211,30 @@ public class Rendupanier extends JFrame {
 
     public void annulerPanier(int nombre, int n, String c) {
         Joueur marqueur = pann.getEquipe(c).getJoueur(n);
-        if (nombre == 1) {
-            marqueur.decr1Point();
-        } else if (nombre == 2) {
-            marqueur.decr2Points();
-        } else if (nombre == 3) {
-            marqueur.decr3Points();
+        if (marqueur != null) {
+
+            if (nombre == 1) {
+                marqueur.decr1Point();
+            } else if (nombre == 2) {
+                marqueur.decr2Points();
+            } else if (nombre == 3) {
+                marqueur.decr3Points();
+            }
+            pann.getEquipe(c).comptePoints();
         }
-        pann.getEquipe(c).comptePoints();
     }
 
+    public void validerPanier(String c, int n, int nombre) {
+        Joueur marqueur = pann.getEquipe(c).getJoueur(n);
+        if (marqueur != null) {
+            if (nombre == 1) {
+                marqueur.incr1Point();
+            } else if (nombre == 2) {
+                marqueur.incr2Points();
+            } else if (nombre == 3) {
+                marqueur.incr3Points();
+            }
+            pann.getEquipe(c).comptePoints();
+        }
+    }
 }

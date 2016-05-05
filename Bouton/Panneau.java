@@ -101,18 +101,18 @@ public class Panneau extends JPanel {
     }
 
     public void defLocaux() {
-        locaux = new Equipe("Espage", "WHITE");
+        locaux = new Equipe("Espagne", "WHITE");
 
-        Joueur zidane = new Joueur(10, "Zidane");
+        Joueur zidane = new Joueur(4, "Zidane");
         locaux.ajouterJoueur(zidane);
         locaux.ajouterTerrain(zidane);
-        Joueur viera = new Joueur(4, "Viera");
+        Joueur viera = new Joueur(6, "Viera");
         locaux.ajouterJoueur(viera);
         locaux.ajouterTerrain(viera);
-        Joueur suba = new Joueur(1, "Subasic");
+        Joueur suba = new Joueur(9, "Subasic");
         locaux.ajouterJoueur(suba);
         locaux.ajouterTerrain(suba);
-        Joueur evra = new Joueur(3, "Evra");
+        Joueur evra = new Joueur(11, "Evra");
         locaux.ajouterJoueur(evra);
         locaux.ajouterTerrain(evra);
         Joueur henry = new Joueur(12, "Henry");
@@ -140,26 +140,26 @@ public class Panneau extends JPanel {
     public void defVisiteurs() {
         visiteurs = new Equipe("Lituanie", "GREEN");
 
-        Joueur olivier = new Joueur(10, "Olivier");
+        Joueur olivier = new Joueur(8, "Olivier");
         visiteurs.ajouterJoueur(olivier);
         visiteurs.ajouterTerrain(olivier);
-        Joueur jo = new Joueur(4, "Jo");
+        Joueur jo = new Joueur(13, "Jo");
         visiteurs.ajouterJoueur(jo);
         visiteurs.ajouterTerrain(jo);
-        Joueur fifi = new Joueur(1, "Fifi");
+        Joueur fifi = new Joueur(17, "Fifi");
         visiteurs.ajouterJoueur(fifi);
         visiteurs.ajouterTerrain(fifi);
-        Joueur lee = new Joueur(3, "Lee");
+        Joueur lee = new Joueur(19, "Lee");
         visiteurs.ajouterJoueur(lee);
         visiteurs.ajouterTerrain(lee);
-        Joueur claire = new Joueur(12, "CLAIRE");
+        Joueur claire = new Joueur(21, "CLAIRE");
         visiteurs.ajouterJoueur(claire);
         visiteurs.ajouterTerrain(claire);
 
         Joueur Lulu = new Joueur(20, "Lulu");
         visiteurs.ajouterJoueur(Lulu);
         visiteurs.ajouterBanc(Lulu);
-        Joueur Cassas = new Joueur(21, "Cassas");
+        Joueur Cassas = new Joueur(5, "Cassas");
         visiteurs.ajouterJoueur(Cassas);
         visiteurs.ajouterBanc(Cassas);
         Joueur Pd = new Joueur(22, "PD");
@@ -231,8 +231,9 @@ public class Panneau extends JPanel {
 
 
         /* ---------------------  FIN CHRONOMETRE  ---------------------- */
- /* ----------------------------- SCORE ------------------------------ */
-        s = "Visiteurs : " + Integer.toString(visiteurs.getPoints());
+        /* ---------------------       SCORE       ---------------------- */
+        
+        s = visiteurs.getNom() + " : " + Integer.toString(visiteurs.getPoints());
         font = new Font("Courier", Font.BOLD, 50);
         g.setFont(font);
         g.drawString(s, 8, 350);
@@ -240,9 +241,9 @@ public class Panneau extends JPanel {
         s = "Fautes : " + Integer.toString(visiteurs.getFautes());
         font = new Font("Courier", Font.BOLD, 30);
         g.setFont(font);
-        g.drawString(s, 8, 375);
+        g.drawString(s, 8, 380);
 
-        s = "Locaux : " + Integer.toString(locaux.getPoints());
+        s = locaux.getNom() + " : " + Integer.toString(locaux.getPoints());
         font = new Font("Courier", Font.BOLD, 50);
         g.setFont(font);
         g.drawString(s, 450, 350);
@@ -250,70 +251,46 @@ public class Panneau extends JPanel {
         s = "Fautes : " + Integer.toString(locaux.getFautes());
         font = new Font("Courier", Font.BOLD, 30);
         g.setFont(font);
-        g.drawString(s, 450, 375);
+        g.drawString(s, 450, 380);
 
         /* COMPOSITIONS D'EQUIPE + NbPoint + NbFautes */
         font = new Font("Courier", Font.BOLD, 20);
         g.setFont(font);
 
         s = "Num";
-        g.drawString(s, 420, 400);
-        s = "Nom";
-        g.drawString(s, 485, 400);
-        s = "Pts";
-        g.drawString(s, 540, 400);
-        s = "Fte";
-        g.drawString(s, 585, 400);
-        s = "Sport";
-        g.drawString(s, 630, 400);
-        s = "Tech";
-        g.drawString(s, 700, 400);
+        g.drawString(s, 460, 400);
+        s = "Points";
+        g.drawString(s, 530, 400);
+        s = "Fautes";
+        g.drawString(s, 635, 400);
 
         int i = 0;
         for (Joueur j : locaux.getTeam()) {
             i++;
             s = Integer.toString(j.getNum());
-            g.drawString(s, 420, 400 + 20 * i);
-            s = j.getNom();
-            g.drawString(s, 465, 400 + 20 * i);
+            g.drawString(s, 470, 400 + 20 * i);
             s = Integer.toString(j.getNbPoints());
-            g.drawString(s, 560, 400 + 20 * i);
-            s = Integer.toString(j.getFautes());
-            g.drawString(s, 600, 400 + 20 * i);
-            s = Integer.toString(j.getSportives());
-            g.drawString(s, 680, 400 + 20 * i);
-            s = Integer.toString(j.getTechniques());
-            g.drawString(s, 730, 400 + 20 * i);
+            g.drawString(s, 550, 400 + 20 * i);
+            s = Integer.toString(j.getTotalFautes());
+            g.drawString(s, 650, 400 + 20 * i);
         }
 
         s = "Num";
         g.drawString(s, 20, 400);
-        s = "Nom";
-        g.drawString(s, 85, 400);
-        s = "Pts";
-        g.drawString(s, 140, 400);
-        s = "Fte";
+        s = "Points";
+        g.drawString(s, 80, 400);
+        s = "Fautes";
         g.drawString(s, 185, 400);
-        s = "Sport";
-        g.drawString(s, 230, 400);
-        s = "Tech";
-        g.drawString(s, 300, 400);
 
         i = 0;
         for (Joueur j : visiteurs.getTeam()) {
             i++;
             s = Integer.toString(j.getNum());
             g.drawString(s, 20, 400 + 20 * i);
-            s = j.getNom();
-            g.drawString(s, 65, 400 + 20 * i);
             s = Integer.toString(j.getNbPoints());
-            g.drawString(s, 160, 400 + 20 * i);
-            s = Integer.toString(j.getFautes());
+            g.drawString(s, 100, 400 + 20 * i);
+            s = Integer.toString(j.getTotalFautes());
             g.drawString(s, 200, 400 + 20 * i);
-            s = Integer.toString(j.getSportives());
-            g.drawString(s, 280, 400 + 20 * i);
-            s = Integer.toString(j.getTechniques());
-            g.drawString(s, 330, 400 + 20 * i);
 
         }
 

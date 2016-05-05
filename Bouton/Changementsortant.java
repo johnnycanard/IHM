@@ -71,8 +71,9 @@ public class Changementsortant extends JFrame {
 
 
         JButton j = new JButton(c);
-        Font changeFont = new Font("Couleur", Font.BOLD, 60);
+        Font changeFont = new Font("Couleur", Font.BOLD, 40);
         j.setFont(changeFont);
+        j.setForeground(Color.WHITE);
 
         if (c.equals("RED")) {
             j.setBackground(Color.RED);
@@ -88,12 +89,10 @@ public class Changementsortant extends JFrame {
         }
         
         j.setPreferredSize(new Dimension(X / 3, Y / 2));
-        j.setForeground(Color.WHITE);
-        
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Couleurchangement cc = new Couleurchangement(0, entrant, pann);
+                Couleurchangement cc = new Couleurchangement(1, entrant, pann);
             }
         });
 

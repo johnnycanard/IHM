@@ -34,31 +34,15 @@ public class Rendufaute extends JFrame {
     public Rendufaute(String s, int n, String c, Panneau panno) {
 
         this.pann = panno;
-
-	final String sok = s;
-	final int nok = n;
-	final String cok = c;
-	
-        Joueur fautif = pann.getEquipe(c).getJoueur(n);
-
-        if (s.equals("FAUTE")) {
-            fautif.incrFautes();
-        } else if (s.equals("SPORT")) {
-            fautif.incrSport();
-        } else if (s.equals("TECH")) {
-            fautif.incrTech();
-        } else {
-            System.out.println("Type de faute non reconnu : " + s);
-        }
-        
-        pann.getEquipe(c).incrFautes();
-        pann.repaint();
-        
-        this.pann = pann;
-
         this.type = s;
         this.num = n;
         this.couleur = c;
+
+        final String sok = s;
+        final int nok = n;
+
+        validerFaute(s, n, couleur);
+        pann.repaint();
 
         this.setTitle("Rendu Faute");
         this.setSize(X + 20, Y + 20);
@@ -83,7 +67,7 @@ public class Rendufaute extends JFrame {
         f.setFont(fontFaute);
         f.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, cok);
+                annulerFaute(sok, nok, couleur);
                 fermer();
                 if (couleur.equals("RED")) {
                     Typefaute tf = new Typefaute(num, "RED", pann);
@@ -105,11 +89,11 @@ public class Rendufaute extends JFrame {
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, cok);
+                annulerFaute(sok, nok, couleur);
                 fermer();
                 if (couleur.equals("RED")) {
                     NumeroFaute nf = new NumeroFaute(type, "RED", pann);
-                } else if (couleur.equals("BLUE")){
+                } else if (couleur.equals("BLUE")) {
                     NumeroFaute nf = new NumeroFaute(type, "BLUE", pann);
                 } else if (couleur.equals("GREEN")) {
                     NumeroFaute nf = new NumeroFaute(type, "GREEN", pann);
@@ -141,12 +125,58 @@ public class Rendufaute extends JFrame {
             b2.setText("BLANC");
         }
         b2.setFont(fontCoul);
-        b2.setPreferredSize(new Dimension(X, Y/2));
+        b2.setPreferredSize(new Dimension(X, Y / 2));
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, cok);
-                fermer();
-                Couleurfaute cf = new Couleurfaute(type, num, pann);
+                annulerFaute(sok, nok, couleur);
+                if (couleur.equals(pann.getVisiteurs().getCouleur())) {
+                    couleur = pann.getLocaux().getCouleur();
+                    if (couleur.equals("RED")) {
+                        b2.setBackground(Color.RED);
+                        b2.setText("ROUGE");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        b2.setBackground(Color.BLUE);
+                        b2.setText("BLEU");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        b2.setBackground(Color.GREEN);
+                        b2.setText("VERT");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        b2.setBackground(Color.BLACK);
+                        b2.setText("NOIR");
+                        b2.setForeground(Color.WHITE);
+                    } else {
+                        b2.setBackground(Color.WHITE);
+                        b2.setForeground(Color.BLACK);
+                        b2.setText("BLANC");
+                    }
+                } else {
+                    couleur = pann.getVisiteurs().getCouleur();
+                    if (couleur.equals("RED")) {
+                        b2.setBackground(Color.RED);
+                        b2.setText("ROUGE");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        b2.setBackground(Color.BLUE);
+                        b2.setText("BLEU");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        b2.setBackground(Color.GREEN);
+                        b2.setText("VERT");
+                        b2.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        b2.setBackground(Color.BLACK);
+                        b2.setText("NOIR");
+                        b2.setForeground(Color.WHITE);
+                    } else {
+                        b2.setBackground(Color.WHITE);
+                        b2.setForeground(Color.BLACK);
+                        b2.setText("BLANC");
+                    }
+                }
+                validerFaute(s, n, couleur);
                 pann.repaint();
             }
         });
@@ -157,7 +187,6 @@ public class Rendufaute extends JFrame {
         retour.setFont(fontNum);
         retour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps = 24
                 fermer();
                 Menu m = new Menu(pann);
                 pann.repaint();
@@ -182,15 +211,34 @@ public class Rendufaute extends JFrame {
 
     public void annulerFaute(String s, int n, String c) {
         Joueur fautif = pann.getEquipe(c).getJoueur(n);
-        if (s.equals("FAUTE")) {
-            fautif.decrFautes();
-        } else if (s.equals("SPORT")) {
-            fautif.decrSport();
-        } else if (s.equals("TECH")) {
-            fautif.decrTech();
-        } else {
-            System.out.println("Type de faute non reconnu : " + s);
+        if (fautif != null) {
+            if (s.equals("FAUTE")) {
+                fautif.decrFautes();
+            } else if (s.equals("SPORT")) {
+                fautif.decrSport();
+            } else if (s.equals("TECH")) {
+                fautif.decrTech();
+            } else {
+                System.out.println("Type de faute non reconnu : " + s);
+            }
+            pann.getEquipe(c).decrFautes();
         }
-        pann.getEquipe(c).decrFautes();
+    }
+
+    public void validerFaute(String s, int n, String c) {
+        Joueur fautif = pann.getEquipe(c).getJoueur(n);
+        if (fautif != null) {
+            if (s.equals("FAUTE")) {
+                fautif.incrFautes();
+            } else if (s.equals("SPORT")) {
+                fautif.incrSport();
+            } else if (s.equals("TECH")) {
+                fautif.incrTech();
+            } else {
+                System.out.println("Type de faute non reconnu : " + s);
+            }
+
+            pann.getEquipe(c).incrFautes();
+        }
     }
 }

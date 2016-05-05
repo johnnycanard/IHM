@@ -28,7 +28,7 @@ public class Fenetre1 extends JFrame {
 	this.setTitle("IHM Basket");
 	this.setSize(X + 100, Y + 50);
 	this.setLocationRelativeTo(null);
-	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
 	/* ---- Avec boutonS ---- */
 	final JButton tps = new JButton("Arret chrono");
@@ -81,7 +81,7 @@ public class Fenetre1 extends JFrame {
 		if (pann.getBool()) {
 		    if (cen == 0) {
 			cen = 100;
-			if (t24 == 1)
+			if (t24 == 0)
 			    t24 = 25;
 			t24--;
 		    

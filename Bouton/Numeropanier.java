@@ -77,7 +77,7 @@ public class Numeropanier extends JFrame {
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Changementsortant cs = new Changementsortant(0, cok, false, pann);
+                Changementsortant cs = new Changementsortant(1, cok, false, pann);
             }
         });
 
