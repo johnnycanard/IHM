@@ -21,6 +21,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Typefaute extends JFrame {
 
+        private Panneau pann;
+    
     String couleur;
     int num;
 
@@ -28,8 +30,10 @@ public class Typefaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Typefaute(int n, String c) {
+    public Typefaute(int n, String c, Panneau pann) {
 
+        this.pann = pann;
+        
         this.num = n;
         this.couleur = c;
 
@@ -55,7 +59,7 @@ public class Typefaute extends JFrame {
         faute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute("FAUTE", num, couleur);
+                    Rendufaute r = new Rendufaute("FAUTE", num, couleur, pann);
             }
         });
 
@@ -66,7 +70,7 @@ public class Typefaute extends JFrame {
         sport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute("SPORT", num, couleur);
+                    Rendufaute r = new Rendufaute("SPORT", num, couleur, pann);
             }
         });
         
@@ -77,7 +81,7 @@ public class Typefaute extends JFrame {
         tech.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute("TECH", num, couleur);
+                    Rendufaute r = new Rendufaute("TECH", num, couleur, pann);
             }
         });
         

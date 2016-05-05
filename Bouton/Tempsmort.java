@@ -22,12 +22,16 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Tempsmort extends JFrame {
  
+        private Panneau pann;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Tempsmort(String c) {
+    public Tempsmort(String c, Panneau pann) {
 
+        this.pann = pann;
+        
         this.setTitle("Temps-Mort");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +61,7 @@ public class Tempsmort extends JFrame {
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Couleurtm ctm = new Couleurtm(); 
+                Couleurtm ctm = new Couleurtm(pann); 
             }
         });
 	JButton retour = new JButton("R");

@@ -22,13 +22,15 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Couleurtm extends JFrame {
  
-        private JPanel content = new JPanel();
+    private Panneau pann;
+
+    private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Couleurtm() {
+    public Couleurtm(Panneau pann) {
 
-
+        this.pann = pann;
         
         this.setTitle("Couleur Changement");
         this.setSize(X + 20, Y + 20);
@@ -51,7 +53,7 @@ public class Couleurtm extends JFrame {
         bleu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Tempsmort tm = new Tempsmort("BLUE");
+                Tempsmort tm = new Tempsmort("BLUE", pann);
             }
         });
 
@@ -63,7 +65,7 @@ public class Couleurtm extends JFrame {
         rouge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Tempsmort tm = new Tempsmort("RED");
+                Tempsmort tm = new Tempsmort("RED", pann);
             }
         });
 

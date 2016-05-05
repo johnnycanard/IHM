@@ -21,12 +21,16 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 public class Nombrepoints extends JFrame {
 
+    private Panneau pann;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Nombrepoints(int n, String c) {
+    public Nombrepoints(int n, String c, Panneau pann) {
 
+        this.pann = pann;
+        
 	final String cok = c;
 	final int nok = n;
 	
@@ -50,7 +54,7 @@ public class Nombrepoints extends JFrame {
         pt1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(1, nok, cok);
+                    Rendupanier rp = new Rendupanier(1, nok, cok, pann);
             }
         });
         
@@ -61,7 +65,7 @@ public class Nombrepoints extends JFrame {
         pt2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(2, nok, cok);
+                    Rendupanier rp = new Rendupanier(2, nok, cok, pann);
             }
         });
         
@@ -72,7 +76,7 @@ public class Nombrepoints extends JFrame {
         pt3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(3, nok, cok);
+                    Rendupanier rp = new Rendupanier(3, nok, cok, pann);
             }
         });
         
@@ -83,7 +87,7 @@ public class Nombrepoints extends JFrame {
         refuser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Base b = new Base();
+                    Base b = new Base(pann);
             }
         });
 

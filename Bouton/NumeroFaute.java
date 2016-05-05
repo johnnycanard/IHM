@@ -21,6 +21,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class NumeroFaute extends JFrame {
 
+    private Panneau pann;
+    
     String type;
     String couleur;
 
@@ -28,7 +30,9 @@ public class NumeroFaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public NumeroFaute(String t, String c) {
+    public NumeroFaute(String t, String c, Panneau pann) {
+        
+        this.pann = pann;
 
         this.type = t;
         this.couleur = c;
@@ -57,7 +61,7 @@ public class NumeroFaute extends JFrame {
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute(type, k, couleur);
+                    Rendufaute r = new Rendufaute(type, k, couleur, pann);
                 }
             });
             all.add(j);
@@ -73,7 +77,7 @@ public class NumeroFaute extends JFrame {
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Changementsortant cs = new Changementsortant(0, couleur, false);
+                Changementsortant cs = new Changementsortant(0, couleur, false, pann);
             }
         });
 

@@ -22,12 +22,17 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Modificationchrono extends JFrame {
     
+    private Panneau pann;
+
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Modificationchrono() {
+    public Modificationchrono(Panneau pann) {
 
+        this.pann = pann;
+        
         this.setTitle("Modification chrono");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +79,7 @@ public class Modificationchrono extends JFrame {
         base.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Menu maxibestof = new Menu();
+                Menu maxibestof = new Menu(pann);
             }
         });
 

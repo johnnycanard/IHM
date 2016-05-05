@@ -65,6 +65,7 @@ public class Joueur {
         this.totalFautes++;
         if (this.totalFautes >= 5) {
             return true;
+            // Afficher num + background coul + "5 FAUTES"
         } else {
             return false;
         }
@@ -75,6 +76,7 @@ public class Joueur {
         this.totalFautes++;
         if (this.totalFautes >= 5) {
             return true;
+            // Afficher num + background coul + "5 FAUTES"
         } else {
             return false;
         }
@@ -85,6 +87,7 @@ public class Joueur {
         this.totalFautes++;
         if (this.totalFautes >= 5) {
             return true;
+            // Afficher num + background coul + "5 FAUTES"
         } else {
             return false;
         }
