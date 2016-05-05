@@ -143,7 +143,7 @@ public class Panneau extends JPanel {
 
 	// Pour rectangle : x, y, longX, longY
 	g.setColor(Color.WHITE);
-	g.fillRect(0, 0, 400, 800);
+	g.fillRect(0, 0, 400,800);
 	g.setColor(Color.WHITE);
 	g.fillRect(400, 0, 400, 800);
 
