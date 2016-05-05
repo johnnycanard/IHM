@@ -20,11 +20,15 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Numeropanier extends JFrame {
 
+        private Panneau pann;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Numeropanier(int nombre, String c) {
+    public Numeropanier(int nombre, String c, Panneau pann) {
+        
+        this.pann = pann;
 
 	final int nombreok = nombre;
 	final String cok = c;
@@ -53,7 +57,7 @@ public class Numeropanier extends JFrame {
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(nombreok, k, cok);
+                    Rendupanier rp = new Rendupanier(nombreok, k, cok, pann);
                 }
             });
             all.add(j);
@@ -69,7 +73,7 @@ public class Numeropanier extends JFrame {
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Changementsortant cs = new Changementsortant(0, cok, false);
+                Changementsortant cs = new Changementsortant(0, cok, false, pann);
             }
         });
 

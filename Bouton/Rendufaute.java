@@ -21,6 +21,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Rendufaute extends JFrame {
 
+        private Panneau pann;
+    
     String type;
     int num = 0;
     String couleur;
@@ -29,7 +31,27 @@ public class Rendufaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Rendufaute(String s, int n, String c) {
+    public Rendufaute(String s, int n, String c, Panneau pann) {
+        
+        
+        Joueur fautif = pann.getEquipe("RED").getJoueur(n);
+                            System.out.println(fautif.toString());
+
+        
+        if (s.equals("FAUTE"))
+            fautif.incrFautes();
+        else if (s.equals("SPORT"))
+            fautif.incrSport();
+        else if (s.equals("TECH"))
+            fautif.incrTech();
+        else
+            System.out.println("Type de faute non reconnu : " + s);
+        
+            System.out.println(fautif.toString());
+            
+        
+        this.pann = pann;
+        
         this.type = s;
         this.num = n;
         this.couleur = c;
@@ -59,9 +81,9 @@ public class Rendufaute extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 if (couleur.equals("RED")) {
-                    Typefaute tf = new Typefaute(num, "RED");
+                    Typefaute tf = new Typefaute(num, "RED", pann);
                 } else {
-                    Typefaute tf = new Typefaute(num, "BLUE");
+                    Typefaute tf = new Typefaute(num, "BLUE", pann);
                 }
                 
             }
@@ -76,9 +98,9 @@ public class Rendufaute extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 if (couleur.equals("RED")) {
-                    NumeroFaute nf = new NumeroFaute(type, "RED");
+                    NumeroFaute nf = new NumeroFaute(type, "RED", pann);
                 } else {
-                    NumeroFaute nf = new NumeroFaute(type, "BLUE");
+                    NumeroFaute nf = new NumeroFaute(type, "BLUE", pann);
                 }
                 
             }
@@ -98,7 +120,7 @@ public class Rendufaute extends JFrame {
         coul.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Couleurfaute cf = new Couleurfaute(type, num);
+                Couleurfaute cf = new Couleurfaute(type, num, pann);
             }
         });
 

@@ -21,6 +21,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Renduchangement extends JFrame {
 
+    private Panneau pann;
+    
     int sortant;
     int entrant;
     String couleur;
@@ -29,7 +31,10 @@ public class Renduchangement extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Renduchangement(int sor, int ent, String c) {
+    public Renduchangement(int sor, int ent, String c, Panneau pann) {
+        
+        this.pann = pann;
+        
         this.sortant = sor;
         this.entrant = ent;
         this.couleur = c;
@@ -58,11 +63,10 @@ public class Renduchangement extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 if (couleur.equals("RED")) {
-                    Changementsortant cs = new Changementsortant(entrant, "RED", true);
+                    Changementsortant cs = new Changementsortant(entrant, "RED", true, pann);
                 } else {
-                    Changementsortant cs = new Changementsortant(entrant, "BLUE", true);
+                    Changementsortant cs = new Changementsortant(entrant, "BLUE", true, pann);
                 }
-
             }
         });
 
@@ -75,10 +79,10 @@ public class Renduchangement extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 if (couleur.equals("RED")) {
-                    Changemententrant cs = new Changemententrant(sortant, "RED");
+                    Changemententrant cs = new Changemententrant(sortant, "RED", pann);
 
                 } else {
-                    Changemententrant cs = new Changemententrant(sortant, "RED");
+                    Changemententrant cs = new Changemententrant(sortant, "RED", pann);
                 }
             }
         });
@@ -97,7 +101,7 @@ public class Renduchangement extends JFrame {
         coul.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Couleurchangement cc = new Couleurchangement(sortant, entrant);
+                Couleurchangement cc = new Couleurchangement(sortant, entrant, pann);
             }
         });
 

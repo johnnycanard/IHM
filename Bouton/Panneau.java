@@ -48,6 +48,13 @@ public class Panneau extends JPanel {
 	return visiteurs;
     }
 
+    public Equipe getEquipe(String s) {
+    if (locaux.getCouleur().equals(s))
+        return locaux;
+    else
+        return visiteurs;
+    }
+    
     /*
     public void reinitChrono() {
 	this.min = 10;

@@ -20,6 +20,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Couleurchangement extends JFrame {
 
+        private Panneau pann;
+
     int sortant;
     int entrant;
 
@@ -27,8 +29,10 @@ public class Couleurchangement extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurchangement(int sort, int entre) {
+    public Couleurchangement(int sort, int entre, Panneau pann) {
 
+        this.pann = pann;
+        
         this.sortant = sort;
         this.entrant = entre;
         
@@ -53,7 +57,7 @@ public class Couleurchangement extends JFrame {
         bleu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Renduchangement rc = new Renduchangement(sortant, entrant, "BLUE");
+                Renduchangement rc = new Renduchangement(sortant, entrant, "BLUE", pann);
             }
         });
 
@@ -65,7 +69,7 @@ public class Couleurchangement extends JFrame {
         rouge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Renduchangement rc = new Renduchangement(sortant, entrant, "RED");
+                Renduchangement rc = new Renduchangement(sortant, entrant, "RED", pann);
             }
         });
 

@@ -23,12 +23,16 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Menu extends JFrame {
     
+    private Panneau pann;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Menu() {
-
+    public Menu(Panneau pann) {
+        
+        this.pann = pann;
+        
         this.setTitle("MENU");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +54,7 @@ public class Menu extends JFrame {
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();                
-                Base b = new Base();
+                Base b = new Base(pann);
             }
         });
 
@@ -61,7 +65,7 @@ public class Menu extends JFrame {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute rf = new Rendufaute("Faute", 0, "RED");
+                Rendufaute rf = new Rendufaute("FAUTE", 4, "RED", pann);
             }
         });
 
@@ -73,7 +77,7 @@ public class Menu extends JFrame {
         b3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(0,0, "RED");
+                Rendupanier rp = new Rendupanier(0,0, "RED", pann);
             }
         });
        
@@ -85,7 +89,7 @@ public class Menu extends JFrame {
         b4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Renduchangement rp = new Renduchangement(0,0, "RED");
+                Renduchangement rp = new Renduchangement(0,0, "RED", pann);
             }
         });
         
@@ -97,7 +101,7 @@ public class Menu extends JFrame {
         b5.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Modificationchrono mc = new Modificationchrono();
+                Modificationchrono mc = new Modificationchrono(pann);
             }
         });
         
@@ -109,7 +113,7 @@ public class Menu extends JFrame {
         b6.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Tempsmort tm = new Tempsmort("RED");
+                Tempsmort tm = new Tempsmort("RED", pann);
             }
         });
         

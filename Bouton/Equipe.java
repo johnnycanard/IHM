@@ -46,6 +46,16 @@ public class Equipe {
 	}
 	team.add(j);		
     }
+    
+    public Joueur getJoueur(int n) {
+        for (Joueur j1 : team) {
+            if (j1.getNum() == n)
+                return j1;
+        }
+        System.out.println("Joueur numéro " + Integer.toString(n) 
+                + "pas sur le terrain");
+                return null;    
+    }
 
     public int getPoints() {
 	return this.points;

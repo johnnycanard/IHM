@@ -20,6 +20,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Couleurfaute extends JFrame {
 
+    private Panneau pann;
+    
     String type;
     int num = 0;
 
@@ -27,8 +29,10 @@ public class Couleurfaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurfaute(String t, int n) {
+    public Couleurfaute(String t, int n, Panneau pann) {
 
+        this.pann = pann;
+        
         this.type = t;
         this.num = n;
 
@@ -53,7 +57,7 @@ public class Couleurfaute extends JFrame {
         bleu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute r = new Rendufaute(type, num, "BLUE");
+                Rendufaute r = new Rendufaute(type, num, "BLUE", pann);
             }
         });
 
@@ -65,7 +69,7 @@ public class Couleurfaute extends JFrame {
         rouge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute r = new Rendufaute(type, num, "RED");
+                Rendufaute r = new Rendufaute(type, num, "RED", pann);
             }
         });
 

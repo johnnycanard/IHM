@@ -20,12 +20,16 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Couleurpanier extends JFrame {
 
+        private Panneau pann;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Couleurpanier(int nombre, int n) {
+    public Couleurpanier(int nombre, int n, Panneau pann) {
 
+        this.pann = pann;
+        
 	final int nombreok = nombre;
 	final int nok = n;
 	
@@ -50,7 +54,7 @@ public class Couleurpanier extends JFrame {
         bleu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(nombreok, nok, "BLUE");
+                Rendupanier rp = new Rendupanier(nombreok, nok, "BLUE", pann);
             }
         });
 
@@ -62,7 +66,7 @@ public class Couleurpanier extends JFrame {
         rouge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(nombreok, nok, "RED");
+                Rendupanier rp = new Rendupanier(nombreok, nok, "RED", pann);
             }
         });
 

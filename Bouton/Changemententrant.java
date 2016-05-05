@@ -21,6 +21,8 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Changemententrant extends JFrame {
 
+    private Panneau pann;
+
     String couleur; // couleur du joueur sortant
     int sortant; // numéro du joueur sortant 
 
@@ -28,7 +30,9 @@ public class Changemententrant extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Changemententrant(int sort, String c) {
+    public Changemententrant(int sort, String c, Panneau pann) {
+        
+        this.pann = pann;
 
         this.sortant = sort;
         this.couleur = c;
@@ -57,7 +61,7 @@ public class Changemententrant extends JFrame {
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Renduchangement rc = new Renduchangement(sortant, k + 5, couleur);
+                    Renduchangement rc = new Renduchangement(sortant, k + 5, couleur, pann);
                 }
             });
             all.add(j);
