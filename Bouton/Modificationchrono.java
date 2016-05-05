@@ -29,9 +29,9 @@ public class Modificationchrono extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Modificationchrono(Panneau pann) {
+    public Modificationchrono(Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.setTitle("Modification chrono");
         this.setSize(X + 20, Y + 20);

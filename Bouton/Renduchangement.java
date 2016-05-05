@@ -31,9 +31,9 @@ public class Renduchangement extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Renduchangement(int sor, int ent, String c, Panneau pann) {
+    public Renduchangement(int sor, int ent, String c, Panneau panno) {
         
-        this.pann = pann;
+        this.pann = panno;
         
         this.sortant = sor;
         this.entrant = ent;
@@ -113,7 +113,7 @@ public class Renduchangement extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 // Temps = 24
 		fermer();
-		Menu m = new Menu();
+		Menu m = new Menu(pann);
             }
         });
 

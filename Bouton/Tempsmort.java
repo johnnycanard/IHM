@@ -28,9 +28,9 @@ public class Tempsmort extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Tempsmort(String c, Panneau pann) {
+    public Tempsmort(String c, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.setTitle("Temps-Mort");
         this.setSize(X + 20, Y + 20);
@@ -72,7 +72,7 @@ public class Tempsmort extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 // Temps = 24
 		fermer();
-		Menu m = new Menu();
+		Menu m = new Menu(pann);
             }
         });
         

@@ -23,8 +23,8 @@ public class Fenetre1 extends JFrame {
     private JPanel container = new JPanel();
     /* --------------------- */
 
-    public Fenetre1(Panneau pann){
-        this.pann = pann;
+    public Fenetre1(Panneau panno){
+        this.pann = panno;
 	this.setTitle("IHM Basket");
 	this.setSize(X + 100, Y + 50);
 	this.setLocationRelativeTo(null);

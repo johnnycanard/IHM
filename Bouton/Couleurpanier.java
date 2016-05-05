@@ -26,9 +26,9 @@ public class Couleurpanier extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurpanier(int nombre, int n, Panneau pann) {
+    public Couleurpanier(int nombre, int n, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
 	final int nombreok = nombre;
 	final int nok = n;

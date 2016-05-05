@@ -30,9 +30,9 @@ public class Typefaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Typefaute(int n, String c, Panneau pann) {
+    public Typefaute(int n, String c, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.num = n;
         this.couleur = c;

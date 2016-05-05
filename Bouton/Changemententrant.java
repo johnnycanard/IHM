@@ -30,9 +30,9 @@ public class Changemententrant extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Changemententrant(int sort, String c, Panneau pann) {
+    public Changemententrant(int sort, String c, Panneau panno) {
         
-        this.pann = pann;
+        this.pann = panno;
 
         this.sortant = sort;
         this.couleur = c;

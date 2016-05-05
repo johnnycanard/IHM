@@ -30,9 +30,9 @@ public class NumeroFaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public NumeroFaute(String t, String c, Panneau pann) {
+    public NumeroFaute(String t, String c, Panneau panno) {
         
-        this.pann = pann;
+        this.pann = panno;
 
         this.type = t;
         this.couleur = c;

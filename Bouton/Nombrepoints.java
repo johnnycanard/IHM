@@ -27,9 +27,9 @@ public class Nombrepoints extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Nombrepoints(int n, String c, Panneau pann) {
+    public Nombrepoints(int n, String c, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
 	final String cok = c;
 	final int nok = n;

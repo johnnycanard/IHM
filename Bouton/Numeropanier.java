@@ -26,9 +26,9 @@ public class Numeropanier extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Numeropanier(int nombre, String c, Panneau pann) {
+    public Numeropanier(int nombre, String c, Panneau panno) {
         
-        this.pann = pann;
+        this.pann = panno;
 
 	final int nombreok = nombre;
 	final String cok = c;

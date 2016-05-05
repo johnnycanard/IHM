@@ -26,8 +26,10 @@ public class Rendupanier extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Rendupanier(int nombre, int n, String c, Panneau pann) {
+    public Rendupanier(int nombre, int n, String c, Panneau panno) {
 
+	this.pann = panno;
+	
 	final int nok = n;
 	final String cok = c;
 	final int nombreok = nombre;
@@ -110,7 +112,7 @@ public class Rendupanier extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 		    // Temps = 24
 		fermer();
-		Menu m = new Menu();
+		Menu m = new Menu(pann);
 		}
 	    });
 	

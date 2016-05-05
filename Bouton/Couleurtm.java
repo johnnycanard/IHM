@@ -28,9 +28,9 @@ public class Couleurtm extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurtm(Panneau pann) {
+    public Couleurtm(Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.setTitle("Couleur Changement");
         this.setSize(X + 20, Y + 20);

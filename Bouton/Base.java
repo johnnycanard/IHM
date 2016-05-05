@@ -27,9 +27,9 @@ public class Base extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Base(Panneau pann) {
+    public Base(Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
 
         this.setTitle("BASE");
         this.setSize(X + 20, Y + 20);

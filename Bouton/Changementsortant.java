@@ -30,9 +30,9 @@ public class Changementsortant extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Changementsortant(int ent, String c, boolean correction, Panneau pann) {
+    public Changementsortant(int ent, String c, boolean correction, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.couleur = c;
         this.entrant = ent;

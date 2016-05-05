@@ -31,8 +31,9 @@ public class Rendufaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Rendufaute(String s, int n, String c, Panneau pann) {
-        
+    public Rendufaute(String s, int n, String c, Panneau panno) {
+
+	this.pann = panno;
         
         Joueur fautif = pann.getEquipe("RED").getJoueur(n);
                             System.out.println(fautif.toString());
@@ -132,7 +133,7 @@ public class Rendufaute extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 // Temps = 24
 		fermer();
-		Menu m = new Menu();
+		Menu m = new Menu(pann);
             }
         });
 

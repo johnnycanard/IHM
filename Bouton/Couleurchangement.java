@@ -29,9 +29,9 @@ public class Couleurchangement extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurchangement(int sort, int entre, Panneau pann) {
+    public Couleurchangement(int sort, int entre, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.sortant = sort;
         this.entrant = entre;

@@ -29,9 +29,9 @@ public class Couleurfaute extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Couleurfaute(String t, int n, Panneau pann) {
+    public Couleurfaute(String t, int n, Panneau panno) {
 
-        this.pann = pann;
+        this.pann = panno;
         
         this.type = t;
         this.num = n;
