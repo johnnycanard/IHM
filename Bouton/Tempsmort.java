@@ -47,7 +47,7 @@ public class Tempsmort extends JFrame {
 
         // Moins de temps
         JButton b1 = new JButton("<html>Temps-Mort<br>         " + c + "</html>");
-        b1.setPreferredSize(new Dimension(X, Y));
+        b1.setPreferredSize(new Dimension(X, Y-20));
         if (c.equals("RED")) {
             b1.setBackground(Color.RED);
             b1.setText("<html>Temps-Mort<br>      Rouge </html>");
@@ -64,9 +64,21 @@ public class Tempsmort extends JFrame {
                 Couleurtm ctm = new Couleurtm(pann); 
             }
         });
+	JButton retour = new JButton("R");
+        retour.setPreferredSize(new Dimension(X , 3));
+        retour.setBackground(Color.WHITE);
+        retour.setFont(font);
+        retour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                // Temps = 24
+		fermer();
+		Menu m = new Menu();
+            }
+        });
         
         JPanel all = new JPanel();
         all.add(b1);
+	all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();

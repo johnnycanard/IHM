@@ -56,7 +56,7 @@ public class Renduchangement extends JFrame {
         // Creation des 3 boutons :
         // Joueur sortant
         JButton sort = new JButton("OUT : " + Integer.toString(this.sortant));
-        sort.setPreferredSize(new Dimension(X / 2, Y / 2));
+        sort.setPreferredSize(new Dimension(X / 2, Y /2 -20 ));
         sort.setBackground(Color.WHITE);
         sort.setFont(fontFaute);
         sort.addActionListener(new ActionListener() {
@@ -72,7 +72,7 @@ public class Renduchangement extends JFrame {
 
         // Joueur entrant
         JButton entre = new JButton("IN : " + Integer.toString(this.entrant));
-        entre.setPreferredSize(new Dimension(X / 2, Y / 2));
+        entre.setPreferredSize(new Dimension(X / 2, Y /2 -20 ));
         entre.setBackground(Color.WHITE);
         entre.setFont(fontFaute);
         entre.addActionListener(new ActionListener() {
@@ -95,7 +95,7 @@ public class Renduchangement extends JFrame {
             coul.setBackground(Color.BLUE);
         }
 
-        coul.setPreferredSize(new Dimension(X, Y / 2));
+        coul.setPreferredSize(new Dimension(X, Y /2 -20 ));
         coul.setFont(fontCoul);
         coul.setForeground(Color.WHITE);
         coul.addActionListener(new ActionListener() {
@@ -105,10 +105,23 @@ public class Renduchangement extends JFrame {
             }
         });
 
+	JButton retour = new JButton("R");
+        retour.setPreferredSize(new Dimension(X , 3));
+        retour.setBackground(Color.WHITE);
+        retour.setFont(fontCoul);
+        retour.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                // Temps = 24
+		fermer();
+		Menu m = new Menu();
+            }
+        });
+
         JPanel all = new JPanel();
         all.add(entre);
         all.add(sort);
         all.add(coul);
+	all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();
