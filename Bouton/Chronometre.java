@@ -87,10 +87,9 @@ public class Chronometre {
     public void decr() {
         sec--;
         if (sec < 0) {
-            sec = 10;
+            sec = 59;
             min--;
         } 
-    
     }
 
 }

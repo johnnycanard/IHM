@@ -62,6 +62,7 @@ public class Tempsmort extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 Couleurtm ctm = new Couleurtm(pann); 
+                pann.repaint();
             }
         });
 	JButton retour = new JButton("R");
@@ -73,6 +74,7 @@ public class Tempsmort extends JFrame {
                 // Temps = 24
 		fermer();
 		Menu m = new Menu(pann);
+                pann.repaint();
             }
         });
         

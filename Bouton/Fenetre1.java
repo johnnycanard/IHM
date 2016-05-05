@@ -74,9 +74,7 @@ public class Fenetre1 extends JFrame {
 	int sec = 1;
 	int cen = 1;
                 
-	while (QT < 5) {         
-            System.out.println("Nouveau QT");
-            
+	while (QT < 5) {                     
             while (pann.getChrono().getMinutes() > 0 
                     || pann.getChrono().getSec() > 0 
                     || pann.getChrono().getCentieme() > 0) {

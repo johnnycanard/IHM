@@ -52,7 +52,8 @@ public class Rendufaute extends JFrame {
         }
         
         pann.getEquipe(c).incrFautes();
-
+        pann.repaint();
+        
         this.pann = pann;
 
         this.type = s;
@@ -89,7 +90,7 @@ public class Rendufaute extends JFrame {
                 } else {
                     Typefaute tf = new Typefaute(num, "BLUE", pann);
                 }
-
+                pann.repaint();
             }
         });
 
@@ -107,7 +108,7 @@ public class Rendufaute extends JFrame {
                 } else {
                     NumeroFaute nf = new NumeroFaute(type, "BLUE", pann);
                 }
-
+                pann.repaint();
             }
         });
 
@@ -127,6 +128,7 @@ public class Rendufaute extends JFrame {
                 annulerFaute(sok, nok, cok);
                 fermer();
                 Couleurfaute cf = new Couleurfaute(type, num, pann);
+                pann.repaint();
             }
         });
 
@@ -139,6 +141,7 @@ public class Rendufaute extends JFrame {
                 // Temps = 24
                 fermer();
                 Menu m = new Menu(pann);
+                pann.repaint();
             }
         });
 

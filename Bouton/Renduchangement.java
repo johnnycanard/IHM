@@ -39,7 +39,7 @@ public class Renduchangement extends JFrame {
         Joueur in = pann.getEquipe(c).getJoueur(ent);
         Joueur out = pann.getEquipe(c).getJoueur(sor);
         pann.getEquipe(c).changement(in, out);
-        
+        pann.repaint();
         
         this.sortant = sor;
         this.entrant = ent;
@@ -73,6 +73,7 @@ public class Renduchangement extends JFrame {
                 } else {
                     Changementsortant cs = new Changementsortant(entrant, "BLUE", true, pann);
                 }
+                pann.repaint();
             }
         });
 
@@ -90,6 +91,7 @@ public class Renduchangement extends JFrame {
                 } else {
                     Changemententrant cs = new Changemententrant(sortant, "RED", pann);
                 }
+                pann.repaint();
             }
         });
 

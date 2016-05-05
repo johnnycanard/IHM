@@ -58,6 +58,7 @@ public class Modificationchrono extends JFrame {
                 // Temps --
                 pann.setBool(false);
                 pann.getChrono().decr();
+                pann.repaint();
             }
         });
 
@@ -71,6 +72,7 @@ public class Modificationchrono extends JFrame {
                 // Temps ++
                 pann.setBool(false);
                 pann.getChrono().incr();
+                pann.repaint();
             }
         });
 
@@ -84,6 +86,7 @@ public class Modificationchrono extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 Menu maxibestof = new Menu(pann);
+                pann.repaint();
             }
         });
 

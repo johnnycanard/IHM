@@ -53,6 +53,7 @@ public class Base extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 if (pann.getChrono().getTime() <= 14) {
                     pann.getChrono().setTime(14);
+                    pann.repaint();
                 }
             }
         });
@@ -64,6 +65,7 @@ public class Base extends JFrame {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 pann.getChrono().setTime(24);
+                pann.repaint();
             }
         });
 
@@ -76,6 +78,7 @@ public class Base extends JFrame {
                 // Temps = 24
                 fermer();
                 Menu m = new Menu(pann);
+                pann.repaint();
             }
         });
 

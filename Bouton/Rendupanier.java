@@ -44,6 +44,7 @@ public class Rendupanier extends JFrame {
         }
 
         pann.getEquipe(c).comptePoints();
+        pann.repaint();
 
         final int nok = n;
         final String cok = c;
@@ -82,7 +83,7 @@ public class Rendupanier extends JFrame {
                 } else {
                     Nombrepoints np = new Nombrepoints(nok, "BLUE", pann);
                 }
-
+                pann.repaint();
             }
         });
 
@@ -100,7 +101,7 @@ public class Rendupanier extends JFrame {
                 } else {
                     Numeropanier np = new Numeropanier(nombreok, "BLUE", pann);
                 }
-
+                pann.repaint();
             }
         });
 
@@ -120,6 +121,7 @@ public class Rendupanier extends JFrame {
                 annulerPanier(nombreok, nok, cok);
                 fermer();
                 Couleurpanier cp = new Couleurpanier(nombreok, nok, pann);
+                pann.repaint();
             }
         });
 
@@ -132,6 +134,7 @@ public class Rendupanier extends JFrame {
                 // Temps = 24
                 fermer();
                 Menu m = new Menu(pann);
+                pann.repaint();
             }
         });
 
