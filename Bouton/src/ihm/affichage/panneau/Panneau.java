@@ -1,14 +1,11 @@
+package ihm.affichage.panneau;
 
-import java.awt.Graphics2D;
+import ihm.match.Equipe;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.awt.Font; // Pour la police d'écriture 
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import java.awt.GradientPaint;
 
 public class Panneau extends JPanel {
 
@@ -22,14 +19,7 @@ public class Panneau extends JPanel {
     private int posX = 0;
     private int posY = 0;
 
-    /* Temps de possession */
-//    private int time = 24;
-    /* Chronomètre */
-//    private int min = 10;
-//    private int sec = 0;
-//    private int centieme = 0;
     private Chronometre chrono = new Chronometre();
-
     private boolean chronometre = true;
 
     public void setBool(boolean b) {
@@ -173,6 +163,7 @@ public class Panneau extends JPanel {
         visiteurs.ajouterBanc(maman);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         // Hauteur et largeur de l'image
         int x = this.getWidth();

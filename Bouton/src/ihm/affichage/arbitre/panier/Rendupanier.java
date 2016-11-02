@@ -1,9 +1,15 @@
+package ihm.affichage.arbitre.panier;
 
+import ihm.affichage.arbitre.Menu;
+import ihm.affichage.panneau.Panneau;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,32 +25,28 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author halbg
  */
-public class Rendufaute extends JFrame {
+public class Rendupanier extends JFrame {
 
     private Panneau pann;
-
-    String type;
-    int num = 0;
-    String couleur;
+    private String couleur;
 
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Rendufaute(String s, int n, String c, Panneau panno) {
+    public Rendupanier(int nombre, int n, String c, Panneau panno) {
 
         this.pann = panno;
-        this.type = s;
-        this.num = n;
         this.couleur = c;
-
-        final String sok = s;
-        final int nok = n;
-
-        validerFaute(s, n, couleur);
+        
+        validerPanier(c, n, nombre);
+        
         pann.repaint();
 
-        this.setTitle("Rendu Faute");
+        final int nok = n;
+        final int nombreok = nombre;
+
+        this.setTitle("Rendu Panier");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -55,50 +57,53 @@ public class Rendufaute extends JFrame {
             System.out.println("Problème d'affichage");
         }
 
+        Font fontPoint = new Font("Equipe", Font.BOLD, 130);
         Font fontNum = new Font("Equipe", Font.BOLD, 150);
-        Font fontFaute = new Font("Equipe", Font.BOLD, 70);
         Font fontCoul = new Font("Equipe", Font.BOLD, 130);
 
         // Creation des 3 boutons :
         // Type de faute
-        JButton f = new JButton(type);
+        JButton f = new JButton(Integer.toString(nombreok) + "pts");
+        if (nombreok == 1) {
+            f.setText(Integer.toString(nombreok) + "pt");
+        }
         f.setPreferredSize(new Dimension(X / 2, Y / 2 - 20));
         f.setBackground(Color.WHITE);
-        f.setFont(fontFaute);
+        f.setFont(fontPoint);
         f.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, couleur);
+                annulerPanier(nombreok, nok, couleur);
                 fermer();
                 if (couleur.equals("RED")) {
-                    Typefaute tf = new Typefaute(num, "RED", pann);
+                    Nombrepoints np = new Nombrepoints(nok, "RED", pann);
                 } else if (couleur.equals("BLUE")) {
-                    Typefaute tf = new Typefaute(num, "BLUE", pann);
+                    Nombrepoints np = new Nombrepoints(nok, "BLUE", pann);
                 } else if (couleur.equals("GREEN")) {
-                    Typefaute tf = new Typefaute(num, "GREEN", pann);
+                    Nombrepoints np = new Nombrepoints(nok, "GREEN", pann);
                 } else if (couleur.equals("WHITE")) {
-                    Typefaute tf = new Typefaute(num, "WHITE", pann);
+                    Nombrepoints np = new Nombrepoints(nok, "WHITE", pann);
                 }
                 pann.repaint();
             }
         });
 
         // Numéro de joueur
-        JButton numero = new JButton(Integer.toString(num));
+        JButton numero = new JButton(Integer.toString(nok));
         numero.setPreferredSize(new Dimension(X / 2, Y / 2 - 20));
         numero.setBackground(Color.WHITE);
         numero.setFont(fontNum);
         numero.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, couleur);
+                annulerPanier(nombreok, nok, couleur);
                 fermer();
                 if (couleur.equals("RED")) {
-                    NumeroFaute nf = new NumeroFaute(type, "RED", pann);
+                    Numeropanier np = new Numeropanier(nombreok, "RED", pann);
                 } else if (couleur.equals("BLUE")) {
-                    NumeroFaute nf = new NumeroFaute(type, "BLUE", pann);
+                    Numeropanier np = new Numeropanier(nombreok, "BLUE", pann);
                 } else if (couleur.equals("GREEN")) {
-                    NumeroFaute nf = new NumeroFaute(type, "GREEN", pann);
+                    Numeropanier np = new Numeropanier(nombreok, "GREEN", pann);
                 } else if (couleur.equals("WHITE")) {
-                    NumeroFaute nf = new NumeroFaute(type, "WHITE", pann);
+                    Numeropanier np = new Numeropanier(nombreok, "WHITE", pann);
                 }
                 pann.repaint();
             }
@@ -128,7 +133,7 @@ public class Rendufaute extends JFrame {
         b2.setPreferredSize(new Dimension(X, Y / 2));
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                annulerFaute(sok, nok, couleur);
+                annulerPanier(nombreok, nok, couleur);
                 if (couleur.equals(pann.getVisiteurs().getCouleur())) {
                     couleur = pann.getLocaux().getCouleur();
                     if (couleur.equals("RED")) {
@@ -176,7 +181,7 @@ public class Rendufaute extends JFrame {
                         b2.setText("BLANC");
                     }
                 }
-                validerFaute(s, n, couleur);
+                validerPanier(couleur, n, nombre);
                 pann.repaint();
             }
         });
@@ -187,6 +192,7 @@ public class Rendufaute extends JFrame {
         retour.setFont(fontNum);
         retour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                // Temps = 24
                 fermer();
                 Menu m = new Menu(pann);
                 pann.repaint();
@@ -209,36 +215,41 @@ public class Rendufaute extends JFrame {
         this.dispose();
     }
 
-    public void annulerFaute(String s, int n, String c) {
-        Joueur fautif = pann.getEquipe(c).getJoueur(n);
-        if (fautif != null) {
-            if (s.equals("FAUTE")) {
-                fautif.decrFautes();
-            } else if (s.equals("SPORT")) {
-                fautif.decrSport();
-            } else if (s.equals("TECH")) {
-                fautif.decrTech();
-            } else {
-                System.out.println("Type de faute non reconnu : " + s);
+    public void annulerPanier(int nombre, int n, String c) {
+        Joueur marqueur = null;
+        try {
+            marqueur = pann.getEquipe(c).getJoueurEquipe(n);
+        } catch (Exception ex) {
+            Logger.getLogger(Rendupanier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (marqueur != null) {
+            if (nombre == 1) {
+                marqueur.decr1Point();
+            } else if (nombre == 2) {
+                marqueur.decr2Points();
+            } else if (nombre == 3) {
+                marqueur.decr3Points();
             }
-            pann.getEquipe(c).decrFautes();
+            pann.getEquipe(c).comptePoints();
         }
     }
 
-    public void validerFaute(String s, int n, String c) {
-        Joueur fautif = pann.getEquipe(c).getJoueur(n);
-        if (fautif != null) {
-            if (s.equals("FAUTE")) {
-                fautif.incrFautes();
-            } else if (s.equals("SPORT")) {
-                fautif.incrSport();
-            } else if (s.equals("TECH")) {
-                fautif.incrTech();
-            } else {
-                System.out.println("Type de faute non reconnu : " + s);
+    public void validerPanier(String c, int n, int nombre) {
+        Joueur marqueur = null;
+        try {
+            marqueur = pann.getEquipe(c).getJoueurEquipe(n);
+        } catch (Exception ex) {
+            Logger.getLogger(Rendupanier.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (marqueur != null) {
+            if (nombre == 1) {
+                marqueur.incr1Point();
+            } else if (nombre == 2) {
+                marqueur.incr2Points();
+            } else if (nombre == 3) {
+                marqueur.incr3Points();
             }
-
-            pann.getEquipe(c).incrFautes();
+            pann.getEquipe(c).comptePoints();
         }
     }
 }

@@ -1,3 +1,4 @@
+package ihm.match;
 
 import java.awt.Color;
 import java.util.LinkedList;
@@ -59,7 +60,6 @@ public class Equipe {
                         + j1.getNum());
                 System.exit(0);
             }
-
         }
         team.add(j);
     }
@@ -108,51 +108,76 @@ public class Equipe {
         }
     }
 
-    public void ajouterTerrain(Joueur j) {
-        // Vérifier que deux joueur n'ait pas le même numéro :
-        for (Joueur j1 : terrain) {
-            if (j1.equals(j)) {
-                System.out.println(j.getNom() + " (numéro " + j.getNum()
+    public void ajouterTerrain(Joueur joueur) {
+        // Vérifier que deux joueurs n'aient pas le même numéro :
+        for (Joueur joueurTerrain : terrain) {
+            if (joueurTerrain.equals(joueur)) {
+                System.out.println(joueur.getNom() + " (numéro " + joueur.getNum()
                         + ") déjà sur le terrain");
                 System.exit(0);
-            } else if (j1.getNum() == j.getNum()) {
-                System.out.println(j1.getNom() + " porte déjà le numéro "
-                        + j1.getNum());
+            } else if (joueurTerrain.getNum() == joueur.getNum()) {
+                System.out.println(joueurTerrain.getNom() + " porte déjà le numéro "
+                        + joueurTerrain.getNum());
                 System.exit(0);
             }
 
         }
-        terrain.add(j);
+        terrain.add(joueur);
     }
 
-    public void ajouterBanc(Joueur j) {
+    // TODO: Générer des exceptions
+    public void ajouterBanc(Joueur joueur) {
         // Vérifier que deux joueur n'ait pas le même numéro :
-        for (Joueur j1 : banc) {
-            if (j1.equals(j)) {
-                System.out.println(j.getNom() + " (numéro " + j.getNum()
+        for (Joueur joueurBanc : banc) {
+            if (joueurBanc.equals(joueur)) {
+                System.out.println(joueur.getNom() + " (numéro " + joueur.getNum()
                         + ") déjà sur le banc");
                 System.exit(0);
-            } else if (j1.getNum() == j.getNum()) {
-                System.out.println(j1.getNom() + " porte déjà le numéro "
-                        + j1.getNum());
+            } else if (joueurBanc.getNum() == joueur.getNum()) {
+                System.out.println(joueurBanc.getNom() + " porte déjà le numéro "
+                        + joueurBanc.getNum());
                 System.exit(0);
             }
-
         }
-        banc.add(j);
+        banc.add(joueur);
     }
 
-    public Joueur getJoueur(int n) {
+    public Joueur getJoueurEquipe(int n) throws Exception{
         for (Joueur j1 : team) {
             if (j1.getNum() == n) {
                 return j1;
             }
         }
-        System.out.println("Joueur numéro " + Integer.toString(n)
-                + " pas sur le terrain");
-        return null;
+        throw new Exception(n + " " + this.couleur + " pas dans l'équipe");
+    }
+    
+    public Joueur getJoueurTerrain(int n) throws Exception{
+        for (Joueur j1 : terrain) {
+            if (j1.getNum() == n) {
+                return j1;
+            }
+        }
+        System.out.println("Joueur " + couleur + " sur le terrain");
+        for (Joueur joueurTerrain : getTerrain()) {
+            System.out.println(joueurTerrain.getNum());
+        }
+        throw new Exception(n + " " + this.couleur + " pas sur le terrain");
     }
 
+    public Joueur getJoueurBanc(int n) throws Exception{
+        for (Joueur j1 : banc) {
+            if (j1.getNum() == n) {
+                return j1;
+            }
+        }
+        System.out.println("Joueur " + couleur + " sur le banc");
+        for (Joueur joueurBanc : getBanc()) {
+            System.out.println(joueurBanc.getNum());
+        }
+
+        throw new Exception(n + " " + this.couleur + " pas sur le banc");
+    }
+    
     public LinkedList<Joueur> getTerrain() {
         return this.terrain;
     }

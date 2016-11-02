@@ -1,4 +1,7 @@
+package ihm.affichage.arbitre.base;
 
+import ihm.affichage.arbitre.Menu;
+import ihm.affichage.panneau.Panneau;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,25 +18,23 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author guillaumehalb
  */
-public class Modificationchrono extends JFrame {
-    
-    private Panneau pann;
+public class Base extends JFrame {
 
-    
+    private Panneau panneau;
+
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Modificationchrono(Panneau panno) {
+    public Base(Panneau panneau) {
 
-        this.pann = panno;
-        
-        this.setTitle("Modification chrono");
+        this.panneau = panneau;
+
+        this.setTitle("BASE");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -45,55 +46,49 @@ public class Modificationchrono extends JFrame {
         }
 
         Font font = new Font("Equipe", Font.BOLD, 150);
-        Font fontMenu = new Font("Equipe", Font.BOLD, 70);
 
-        // Creation des 3 boutons :
-        // Moins de temps
-        JButton b1 = new JButton("-");
-        b1.setPreferredSize(new Dimension(X / 2, Y / 2));
+        // Creation des 2 boutons :
+        JButton b1 = new JButton("14");
+        b1.setPreferredSize(new Dimension(X / 2, Y-37));
         b1.setBackground(Color.WHITE);
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps --
-                pann.setBool(false);
-                pann.getChrono().decr();
-                pann.repaint();
+                if (panneau.getChrono().getTime() <= 14) {
+                    panneau.getChrono().setTime(14);
+                    panneau.repaint();
+                }
             }
         });
 
-        // Plus de temps
-        JButton b2 = new JButton("+");
-        b2.setPreferredSize(new Dimension(X / 2, Y / 2));
+        JButton b2 = new JButton("24");
+        b2.setPreferredSize(new Dimension(X / 2, Y-37));
         b2.setBackground(Color.WHITE);
         b2.setFont(font);
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps ++
-                pann.setBool(false);
-                pann.getChrono().incr();
-                pann.repaint();
+                panneau.getChrono().setTime(24);
+                panneau.repaint();
             }
         });
 
-        // Retour
-        JButton base = new JButton("Menu");
-        base.setBackground(Color.WHITE);
-        base.setPreferredSize(new Dimension(X, Y / 2));
-        base.setFont(fontMenu);
-        base.setForeground(Color.BLACK);
-        base.addActionListener(new ActionListener() {
+        JButton retour = new JButton("R");
+        retour.setPreferredSize(new Dimension(X, 3));
+        retour.setBackground(Color.WHITE);
+        retour.setFont(font);
+        retour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                // Temps = 24
                 fermer();
-                Menu maxibestof = new Menu(pann);
-                pann.repaint();
+                Menu m = new Menu(panneau);
+                panneau.repaint();
             }
         });
 
         JPanel all = new JPanel();
         all.add(b1);
         all.add(b2);
-        all.add(base);
+        all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();
@@ -104,5 +99,4 @@ public class Modificationchrono extends JFrame {
     public void fermer() {
         this.dispose();
     }
-
 }

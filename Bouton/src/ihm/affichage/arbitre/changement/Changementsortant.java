@@ -1,4 +1,8 @@
+package ihm.affichage.arbitre.changement;
 
+import ihm.affichage.panneau.Panneau;
+import ihm.match.Equipe;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -22,7 +26,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class Changementsortant extends JFrame {
 
     private Panneau pann;
-    
+
     String couleur; // couleur du joueur sortant
     int entrant; // joueur entrant
 
@@ -33,11 +37,11 @@ public class Changementsortant extends JFrame {
     public Changementsortant(int ent, String c, boolean correction, Panneau panno) {
 
         this.pann = panno;
-        
+
         this.couleur = c;
         this.entrant = ent;
-	final boolean corr = correction;
-	
+        final boolean corr = correction;
+
         this.setTitle("Joueur Sortant");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,13 +57,13 @@ public class Changementsortant extends JFrame {
         Font font = new Font("Joueurs", Font.BOLD, 100);
 
         Equipe eq = pann.getEquipe(c);
-        
+
         for (Joueur j1 : eq.getTerrain()) {
             JButton j = new JButton(Integer.toString(j1.getNum()));
             j.setFont(font);
             j.setBackground(Color.WHITE);
             j.setPreferredSize(new Dimension(X / 3, Y / 2));
-	    final Joueur j1ok = j1;
+            final Joueur j1ok = j1;
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
@@ -68,7 +72,6 @@ public class Changementsortant extends JFrame {
             });
             all.add(j);
         }
-
 
         JButton j = new JButton(c);
         Font changeFont = new Font("Couleur", Font.BOLD, 40);
@@ -87,12 +90,60 @@ public class Changementsortant extends JFrame {
             j.setBackground(Color.WHITE);
             j.setForeground(Color.BLACK);
         }
-        
+
         j.setPreferredSize(new Dimension(X / 3, Y / 2));
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                fermer();
-                Couleurchangement cc = new Couleurchangement(1, entrant, pann);
+                // fermer();
+                // Couleurchangement cc = new Couleurchangement(1, entrant, pann);
+                if (couleur.equals(pann.getVisiteurs().getCouleur())) {
+                    couleur = pann.getLocaux().getCouleur();
+                    if (couleur.equals("RED")) {
+                        j.setBackground(Color.RED);
+                        j.setText("ROUGE");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        j.setBackground(Color.BLUE);
+                        j.setText("BLEU");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        j.setBackground(Color.GREEN);
+                        j.setText("VERT");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        j.setBackground(Color.BLACK);
+                        j.setText("NOIR");
+                        j.setForeground(Color.WHITE);
+                    } else {
+                        j.setBackground(Color.WHITE);
+                        j.setForeground(Color.BLACK);
+                        j.setText("BLANC");
+                    }
+                } else {
+                    couleur = pann.getVisiteurs().getCouleur();
+                    if (couleur.equals("RED")) {
+                        j.setBackground(Color.RED);
+                        j.setText("ROUGE");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        j.setBackground(Color.BLUE);
+                        j.setText("BLEU");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        j.setBackground(Color.GREEN);
+                        j.setText("VERT");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        j.setBackground(Color.BLACK);
+                        j.setText("NOIR");
+                        j.setForeground(Color.WHITE);
+                    } else {
+                        j.setBackground(Color.WHITE);
+                        j.setForeground(Color.BLACK);
+                        j.setText("BLANC");
+                    }
+                }
+                pann.repaint();
             }
         });
 

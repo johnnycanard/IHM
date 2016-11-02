@@ -1,4 +1,8 @@
+package ihm.affichage.arbitre.changement;
 
+import ihm.affichage.panneau.Panneau;
+import ihm.match.Equipe;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -85,7 +89,60 @@ public class Changemententrant extends JFrame {
             j.setBackground(Color.WHITE);
             j.setForeground(Color.BLACK);
         }
-
+        j.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                // fermer();
+                // Couleurchangement cc = new Couleurchangement(1, entrant, pann);
+                if (couleur.equals(pann.getVisiteurs().getCouleur())) {
+                    couleur = pann.getLocaux().getCouleur();
+                    if (couleur.equals("RED")) {
+                        j.setBackground(Color.RED);
+                        j.setText("ROUGE");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        j.setBackground(Color.BLUE);
+                        j.setText("BLEU");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        j.setBackground(Color.GREEN);
+                        j.setText("VERT");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        j.setBackground(Color.BLACK);
+                        j.setText("NOIR");
+                        j.setForeground(Color.WHITE);
+                    } else {
+                        j.setBackground(Color.WHITE);
+                        j.setForeground(Color.BLACK);
+                        j.setText("BLANC");
+                    }
+                } else {
+                    couleur = pann.getVisiteurs().getCouleur();
+                    if (couleur.equals("RED")) {
+                        j.setBackground(Color.RED);
+                        j.setText("ROUGE");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLUE")) {
+                        j.setBackground(Color.BLUE);
+                        j.setText("BLEU");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("GREEN")) {
+                        j.setBackground(Color.GREEN);
+                        j.setText("VERT");
+                        j.setForeground(Color.WHITE);
+                    } else if (couleur.equals("BLACK")) {
+                        j.setBackground(Color.BLACK);
+                        j.setText("NOIR");
+                        j.setForeground(Color.WHITE);
+                    } else {
+                        j.setBackground(Color.WHITE);
+                        j.setForeground(Color.BLACK);
+                        j.setText("BLANC");
+                    }
+                }
+                pann.repaint();
+            }
+        });
         all.add(j);
 
         content.repaint();

@@ -1,3 +1,7 @@
+package ihm.affichage.arbitre.panier;
+
+import ihm.affichage.arbitre.base.Base;
+import ihm.affichage.panneau.Panneau;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

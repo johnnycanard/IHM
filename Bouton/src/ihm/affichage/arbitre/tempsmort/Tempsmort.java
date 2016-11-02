@@ -1,3 +1,7 @@
+package ihm.affichage.arbitre.tempsmort;
+
+import ihm.affichage.arbitre.Menu;
+import ihm.affichage.panneau.Panneau;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

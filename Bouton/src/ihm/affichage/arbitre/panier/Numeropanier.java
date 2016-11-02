@@ -1,4 +1,9 @@
+package ihm.affichage.arbitre.panier;
 
+import ihm.affichage.arbitre.changement.Changementsortant;
+import ihm.affichage.panneau.Panneau;
+import ihm.match.Equipe;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,25 +24,22 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author halbg
  */
-public class NumeroFaute extends JFrame {
+public class Numeropanier extends JFrame {
 
-    private Panneau pann;
+        private Panneau pann;
     
-    String type;
-    String couleur;
-
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public NumeroFaute(String t, String c, Panneau panno) {
+    public Numeropanier(int nombre, String c, Panneau panno) {
         
         this.pann = panno;
 
-        this.type = t;
-        this.couleur = c;
-
-        this.setTitle("Numéro Faute");
+	final int nombreok = nombre;
+	final String cok = c;
+	
+        this.setTitle("Numéro Panier");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -62,11 +64,14 @@ public class NumeroFaute extends JFrame {
             j.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendufaute r = new Rendufaute(type, j1ok.getNum(), couleur, pann);
+                    Rendupanier rp = new Rendupanier(nombreok, j1ok.getNum(), cok, pann);
+
                 }
             });
             all.add(j);
         }
+       
+
 
         JButton j = new JButton();
         Font changeFont = new Font("Joueurs", Font.BOLD, 20);
@@ -78,7 +83,7 @@ public class NumeroFaute extends JFrame {
         j.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Changementsortant cs = new Changementsortant(0, couleur, false, pann);
+                Changementsortant cs = new Changementsortant(1, cok, false, pann);
             }
         });
 
@@ -94,3 +99,4 @@ public class NumeroFaute extends JFrame {
         this.dispose();
     }
 }
+

@@ -1,3 +1,6 @@
+package ihm.affichage.panneau;
+
+
 import java.awt.Color; // Pour la couleur
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,7 +15,7 @@ import java.awt.event.ActionListener;
 
 public class Fenetre1 extends JFrame {
 
-    private Panneau pann;
+    private Panneau panneau;
     // Dimension de la fenêtre
     private int X = 800;
     private int Y = 800;
@@ -24,7 +27,7 @@ public class Fenetre1 extends JFrame {
     /* --------------------- */
 
     public Fenetre1(Panneau panno){
-        this.pann = panno;
+        this.panneau = panno;
 	this.setTitle("IHM Basket");
 	this.setSize(X + 100, Y + 50);
 	this.setLocationRelativeTo(null);
@@ -35,10 +38,10 @@ public class Fenetre1 extends JFrame {
 	tps.setPreferredSize(new Dimension(50, 50));
 	tps.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent event) {
-		    pann.setBool(!pann.getBool());
-		    if (pann.getBool()) 
+		    panneau.setBool(!panneau.getBool());
+		    if (panneau.getBool()) 
 			tps.setText("Arret chrono");
-		    else if (!pann.getBool()) 
+		    else if (!panneau.getBool()) 
 			tps.setText("Reprise chrono");
 		}
 	    }
@@ -46,7 +49,7 @@ public class Fenetre1 extends JFrame {
 
 	container.setBackground(Color.WHITE);
 	container.setLayout(new BorderLayout());
-	container.add(pann, BorderLayout.CENTER);
+	container.add(panneau, BorderLayout.CENTER);
 	container.add(tps, BorderLayout.SOUTH);
         
 	this.setContentPane(container);
@@ -58,27 +61,27 @@ public class Fenetre1 extends JFrame {
     }
     
     public Panneau getPanneau() {
-        return this.pann;
+        return this.panneau;
     }
     
     private void chrono() {
-        int QT = pann.getQT();
+        int QT = panneau.getQT();
         int t24;
         int min = 1;
 	int sec = 1;
 	int cen = 1;
                 
 	while (QT < 5) {                     
-            while (pann.getChrono().getMinutes() > 0 
-                    || pann.getChrono().getSec() > 0 
-                    || pann.getChrono().getCentieme() > 0) {
+            while (panneau.getChrono().getMinutes() > 0 
+                    || panneau.getChrono().getSec() > 0 
+                    || panneau.getChrono().getCentieme() > 0) {
                 
-                t24 = pann.getChrono().getTime();
-                min = pann.getChrono().getMinutes();
-                sec = pann.getChrono().getSec();
-                cen = pann.getChrono().getCentieme();
+                t24 = panneau.getChrono().getTime();
+                min = panneau.getChrono().getMinutes();
+                sec = panneau.getChrono().getSec();
+                cen = panneau.getChrono().getCentieme();
                 
-		if (pann.getBool()) {
+		if (panneau.getBool()) {
 		    if (cen == 0) {
 			cen = 100;
 			if (t24 == 0)
@@ -91,13 +94,13 @@ public class Fenetre1 extends JFrame {
 			}
 		
 			sec--;
-			pann.getChrono().setMin(min);
-			pann.getChrono().setSec(sec);
+			panneau.getChrono().setMin(min);
+			panneau.getChrono().setSec(sec);
 		    }
 		    cen--;
-		    pann.getChrono().setCentieme(cen);
-		    pann.getChrono().setTime(t24);
-		    pann.repaint();
+		    panneau.getChrono().setCentieme(cen);
+		    panneau.getChrono().setTime(t24);
+		    panneau.repaint();
 		    try {
 			Thread.sleep(10);
 		    } catch (InterruptedException e) {
@@ -112,14 +115,14 @@ public class Fenetre1 extends JFrame {
 		    }
 		}
 	    }
-	    pann.getChrono().reinitChrono();
+	    panneau.getChrono().reinitChrono();
 	    QT++;
-	    pann.setQT(QT);
-            pann.getVisiteurs().reinitFautes();
-            pann.getLocaux().reinitFautes();
+	    panneau.setQT(QT);
+            panneau.getVisiteurs().reinitFautes();
+            panneau.getLocaux().reinitFautes();
 	}
-	pann.setQT(1);
-	pann.repaint();
+	panneau.setQT(1);
+	panneau.repaint();
     }
 
 

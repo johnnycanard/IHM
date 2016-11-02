@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ihm.affichage.panneau;
 
 /**
  *
@@ -77,19 +78,25 @@ public class Chronometre {
     }
     
     public void incr() {
-        sec++;
-        if (sec == 60) {
-            sec = 0;
-            min++;
-        }
+        if (!(sec == 0 && min == 10)) {
+            sec++;
+            if (sec == 60) {
+                sec = 0;
+                min++;
+            }
+    }
     }
     
     public void decr() {
-        sec--;
-        if (sec < 0) {
-            sec = 59;
-            min--;
-        } 
+        if (!(sec == 0 
+                && min == 0 
+                && centieme == 0)) {
+            sec--;
+            if (sec < 0) {
+                sec = 59;
+                min--;
+            } 
+        }
     }
 
 }

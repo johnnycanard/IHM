@@ -1,4 +1,7 @@
+package ihm.affichage.arbitre.chronometre;
 
+import ihm.affichage.arbitre.Menu;
+import ihm.affichage.panneau.Panneau;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,23 +18,25 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
  * @author guillaumehalb
  */
-public class Base extends JFrame {
-
+public class Modificationchrono extends JFrame {
+    
     private Panneau pann;
 
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Base(Panneau panno) {
+    public Modificationchrono(Panneau panno) {
 
         this.pann = panno;
-
-        this.setTitle("BASE");
+        
+        this.setTitle("Modification chrono");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -43,41 +48,47 @@ public class Base extends JFrame {
         }
 
         Font font = new Font("Equipe", Font.BOLD, 150);
+        Font fontMenu = new Font("Equipe", Font.BOLD, 70);
 
-        // Creation des 2 boutons :
-        JButton b1 = new JButton("14");
-        b1.setPreferredSize(new Dimension(X / 2, Y-37));
+        // Creation des 3 boutons :
+        // Moins de temps
+        JButton b1 = new JButton("-");
+        b1.setPreferredSize(new Dimension(X / 2, Y / 2));
         b1.setBackground(Color.WHITE);
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (pann.getChrono().getTime() <= 14) {
-                    pann.getChrono().setTime(14);
-                    pann.repaint();
-                }
-            }
-        });
-
-        JButton b2 = new JButton("24");
-        b2.setPreferredSize(new Dimension(X / 2, Y-37));
-        b2.setBackground(Color.WHITE);
-        b2.setFont(font);
-        b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                pann.getChrono().setTime(24);
+                // Temps --
+                pann.setBool(false);
+                pann.getChrono().decr();
                 pann.repaint();
             }
         });
 
-        JButton retour = new JButton("R");
-        retour.setPreferredSize(new Dimension(X, 3));
-        retour.setBackground(Color.WHITE);
-        retour.setFont(font);
-        retour.addActionListener(new ActionListener() {
+        // Plus de temps
+        JButton b2 = new JButton("+");
+        b2.setPreferredSize(new Dimension(X / 2, Y / 2));
+        b2.setBackground(Color.WHITE);
+        b2.setFont(font);
+        b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps = 24
+                // Temps ++
+                pann.setBool(false);
+                pann.getChrono().incr();
+                pann.repaint();
+            }
+        });
+
+        // Retour
+        JButton base = new JButton("Menu");
+        base.setBackground(Color.WHITE);
+        base.setPreferredSize(new Dimension(X, Y / 2));
+        base.setFont(fontMenu);
+        base.setForeground(Color.BLACK);
+        base.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
                 fermer();
-                Menu m = new Menu(pann);
+                Menu maxibestof = new Menu(pann);
                 pann.repaint();
             }
         });
@@ -85,7 +96,7 @@ public class Base extends JFrame {
         JPanel all = new JPanel();
         all.add(b1);
         all.add(b2);
-        all.add(retour);
+        all.add(base);
         all.setBackground(Color.WHITE);
 
         content.repaint();
@@ -96,4 +107,5 @@ public class Base extends JFrame {
     public void fermer() {
         this.dispose();
     }
+
 }

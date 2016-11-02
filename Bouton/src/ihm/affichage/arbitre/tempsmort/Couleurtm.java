@@ -1,4 +1,6 @@
+package ihm.affichage.arbitre.tempsmort;
 
+import ihm.affichage.panneau.Panneau;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,29 +17,24 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
  *
- * @author halbg
+ * @author guillaumehalb
  */
-public class Couleurfaute extends JFrame {
-
+public class Couleurtm extends JFrame {
+ 
     private Panneau pann;
-
-    String type;
-    int num = 0;
 
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Couleurfaute(String t, int n, Panneau panno) {
+    public Couleurtm(Panneau panno) {
 
         this.pann = panno;
-
-        this.type = t;
-        this.num = n;
-
-        this.setTitle("Couleur Faute");
+        
+        this.setTitle("Couleur Changement");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -52,7 +49,6 @@ public class Couleurfaute extends JFrame {
 
         JButton b1 = new JButton("AUTRE");
         b1.setForeground(Color.WHITE);
-
         if (this.pann.getVisiteurs().getCouleur().equals("RED")) {
             b1.setBackground(Color.RED);
             b1.setText("ROUGE");
@@ -75,9 +71,7 @@ public class Couleurfaute extends JFrame {
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute r = new Rendufaute(type, num,
-                        pann.getVisiteurs().getCouleur(), pann);
-                System.out.println(pann.getVisiteurs().getCouleur());
+                Tempsmort tm = new Tempsmort(pann.getVisiteurs().getCouleur(), pann);
             }
         });
 
@@ -105,8 +99,7 @@ public class Couleurfaute extends JFrame {
         b2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendufaute r = new Rendufaute(type, num,
-                        pann.getLocaux().getCouleur(), pann);
+                Tempsmort tm = new Tempsmort(pann.getLocaux().getCouleur(), pann);
             }
         });
 
@@ -118,10 +111,12 @@ public class Couleurfaute extends JFrame {
 
         this.setContentPane(all);
         this.setVisible(true);
+
     }
 
     public void fermer() {
         this.dispose();
     }
-
+    
+    
 }
