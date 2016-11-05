@@ -7,7 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.AbstractButton;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,15 +27,25 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Tempsmort extends JFrame {
  
-        private Panneau pann;
+    private Panneau panneau;
     
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
+    private String couleur;
 
-    public Tempsmort(String c, Panneau panno) {
-
-        this.pann = panno;
+    public Tempsmort(String coul, Panneau panneau) {
+        this.panneau = panneau;
+        this.couleur = coul;
+        
+        //TODO: Faire un nouveau chrono de durée = durée d'un temps mort
+        panneau.arretChronometre();
+        
+        if (couleur.equals(panneau.getVisiteurs().getCouleur())) {
+            panneau.getVisiteurs().incrNbTM();
+        } else {
+            panneau.getLocaux().incrNbTM();
+        }
         
         this.setTitle("Temps-Mort");
         this.setSize(X + 20, Y + 20);
@@ -49,32 +60,35 @@ public class Tempsmort extends JFrame {
 
         Font font = new Font("Equipe", Font.BOLD, 100);
 
-        // Moins de temps
-        JButton b1 = new JButton("<html>Temps-Mort<br>         " + c + "</html>");
-        b1.setPreferredSize(new Dimension(X, Y-20));
-        b1.setForeground(Color.WHITE);
-        if (c.equals("RED")) {
-            b1.setBackground(Color.RED);
-            b1.setText("<html>Temps-Mort<br> Rouge </html>");
-        } else if (c.equals("BLUE")) {
-            b1.setBackground(Color.BLUE);
-            b1.setText("<html>Temps-Mort<br> BLEU </html>");
-        } else if (c.equals("GREEN")) {
-            b1.setBackground(Color.GREEN);
-            b1.setText("<html>Temps-Mort<br> VERT </html>");
-        } else if (c.equals("WHITE")) {
-            b1.setBackground(Color.WHITE);
-            b1.setText("<html>Temps-Mort<br> BLANC </html>");
-            b1.setForeground(Color.BLACK);
-        } 
-        b1.setFont(font);
-        b1.addActionListener(new ActionListener() {
+        JButton boutonCouleurTempsMort = new JButton("<html>Temps-Mort<br>         " + couleur + "</html>");
+        boutonCouleurTempsMort.setPreferredSize(new Dimension(X, Y-20));
+        peindreBoutonTempsMort(boutonCouleurTempsMort);
+        boutonCouleurTempsMort.setFont(font);
+        boutonCouleurTempsMort.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                fermer();
-                Couleurtm ctm = new Couleurtm(pann); 
-                pann.repaint();
+                if (couleur.equals(panneau.getVisiteurs().getCouleur())) {
+                    panneau.getLocaux().incrNbTM();
+                    try {
+                        panneau.getVisiteurs().decrNbTM();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Tempsmort.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    couleur = panneau.getLocaux().getCouleur();
+                    peindreBoutonTempsMort(boutonCouleurTempsMort);
+                } else {
+                    panneau.getVisiteurs().incrNbTM();
+                    try {
+                        panneau.getLocaux().decrNbTM();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Tempsmort.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    couleur = panneau.getVisiteurs().getCouleur();
+                    peindreBoutonTempsMort(boutonCouleurTempsMort);
+                }    
+                panneau.repaint();
             }
         });
+        
 	JButton retour = new JButton("R");
         retour.setPreferredSize(new Dimension(X , 3));
         retour.setBackground(Color.WHITE);
@@ -83,13 +97,13 @@ public class Tempsmort extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 // Temps = 24
 		fermer();
-		Menu m = new Menu(pann);
-                pann.repaint();
+		Menu m = new Menu(panneau);
+                panneau.repaint();
             }
         });
         
         JPanel all = new JPanel();
-        all.add(b1);
+        all.add(boutonCouleurTempsMort);
 	all.add(retour);
         all.setBackground(Color.WHITE);
 
@@ -98,6 +112,24 @@ public class Tempsmort extends JFrame {
         this.setVisible(true);
     }
 
+    private void peindreBoutonTempsMort(JButton boutonCouleurTempsMort) {
+        boutonCouleurTempsMort.setForeground(Color.WHITE);
+        if (couleur.equals("RED")) {
+            boutonCouleurTempsMort.setBackground(Color.RED);
+            boutonCouleurTempsMort.setText("<html>Temps-Mort<br> Rouge </html>");
+        } else if (couleur.equals("BLUE")) {
+            boutonCouleurTempsMort.setBackground(Color.BLUE);
+            boutonCouleurTempsMort.setText("<html>Temps-Mort<br> BLEU </html>");
+        } else if (couleur.equals("GREEN")) {
+            boutonCouleurTempsMort.setBackground(Color.GREEN);
+            boutonCouleurTempsMort.setText("<html>Temps-Mort<br> VERT </html>");
+        } else if (couleur.equals("WHITE")) {
+            boutonCouleurTempsMort.setBackground(Color.WHITE);
+            boutonCouleurTempsMort.setText("<html>Temps-Mort<br> BLANC </html>");
+            boutonCouleurTempsMort.setForeground(Color.BLACK);
+        }        
+    }
+    
     public void fermer() {
         this.dispose();
     }    

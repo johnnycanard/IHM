@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 /* --------------------- */
 
 public class Fenetre1 extends JFrame {
-
     private Panneau panneau;
     // Dimension de la fenêtre
     private int X = 800;
@@ -22,16 +21,15 @@ public class Fenetre1 extends JFrame {
 
 
     /* ---- Avec boutonS ---- */
-    //private boolean chrono = true;
     private JPanel container = new JPanel();
     /* --------------------- */
 
     public Fenetre1(Panneau panno){
         this.panneau = panno;
 	this.setTitle("IHM Basket");
-	this.setSize(X + 100, Y + 50);
+	this.setSize(X, Y);
 	this.setLocationRelativeTo(null);
-	// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
 	/* ---- Avec boutonS ---- */
 	final JButton tps = new JButton("Arret chrono");
@@ -76,7 +74,7 @@ public class Fenetre1 extends JFrame {
                     || panneau.getChrono().getSec() > 0 
                     || panneau.getChrono().getCentieme() > 0) {
                 
-                t24 = panneau.getChrono().getTime();
+                t24 = panneau.getChrono().getTempsPossession();
                 min = panneau.getChrono().getMinutes();
                 sec = panneau.getChrono().getSec();
                 cen = panneau.getChrono().getCentieme();

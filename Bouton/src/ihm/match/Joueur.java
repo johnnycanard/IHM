@@ -5,11 +5,13 @@
  */
 package ihm.match;
 
+import java.util.Comparator;
+
 /**
  *
  * @author guillaumehalb
  */
-public class Joueur {
+public class Joueur implements Comparator<Joueur>, Comparable<Joueur>{
 
     private int nb1point;
     private int nb2points;
@@ -174,6 +176,16 @@ public class Joueur {
             return true;
         }
         return false;
+    }
+    
+    @Override
+    public int compare(Joueur j1, Joueur j2) {
+        return j1.getNum() - j2.getNum();
+    }
+
+    @Override
+    public int compareTo(Joueur j) {
+        return this.getNum() - j.getNum();
     }
 
 }

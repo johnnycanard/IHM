@@ -1,8 +1,5 @@
 package ihm.test;
 
-import javax.swing.JFrame;
-import java.awt.Color;
-
 import ihm.affichage.arbitre.Menu;
 import ihm.affichage.panneau.Panneau;
 import ihm.affichage.panneau.Fenetre1;

@@ -1,10 +1,10 @@
 package ihm.affichage.arbitre;
 
 import ihm.affichage.arbitre.base.Base;
-import ihm.affichage.arbitre.changement.Renduchangement;
+import ihm.affichage.arbitre.changement.RenduChangement;
 import ihm.affichage.arbitre.chronometre.Modificationchrono;
 import ihm.affichage.arbitre.faute.Rendufaute;
-import ihm.affichage.arbitre.panier.Rendupanier;
+import ihm.affichage.arbitre.panier.RenduPanier;
 import ihm.affichage.arbitre.tempsmort.Tempsmort;
 import ihm.affichage.panneau.Panneau;
 import ihm.match.Joueur;
@@ -55,22 +55,22 @@ public class Menu extends JFrame {
         Font font = new Font("Equipe", Font.BOLD, 50);
 
         // Creation de 6 boutons :
-        JButton b1 = new JButton("Base");
-        b1.setPreferredSize(new Dimension(X / 3, Y / 2));
-        b1.setBackground(Color.WHITE);
-        b1.setFont(font);
-        b1.addActionListener(new ActionListener() {
+        JButton boutonBase = new JButton("Base");
+        boutonBase.setPreferredSize(new Dimension(X / 3, Y / 2));
+        boutonBase.setBackground(Color.WHITE);
+        boutonBase.setFont(font);
+        boutonBase.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();                
                 Base base = new Base(panneau);
             }
         });
 
-        JButton b2 = new JButton("Faute");
-        b2.setPreferredSize(new Dimension(X / 3, Y / 2));
-        b2.setBackground(Color.WHITE);
-        b2.setFont(font);
-        b2.addActionListener(new ActionListener() {
+        JButton boutonFaute = new JButton("Faute");
+        boutonFaute.setPreferredSize(new Dimension(X / 3, Y / 2));
+        boutonFaute.setBackground(Color.WHITE);
+        boutonFaute.setFont(font);
+        boutonFaute.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
                 Rendufaute rf = new Rendufaute("FAUTE", 
@@ -79,15 +79,15 @@ public class Menu extends JFrame {
             }
         });
 
-        JButton b3 = new JButton("Points");
-        b3.setBackground(Color.WHITE);
-        b3.setPreferredSize(new Dimension(X / 3, Y / 2));
-        b3.setFont(font);
-        b3.setForeground(Color.BLACK);
-        b3.addActionListener(new ActionListener() {
+        JButton boutonPoints = new JButton("Points");
+        boutonPoints.setBackground(Color.WHITE);
+        boutonPoints.setPreferredSize(new Dimension(X / 3, Y / 2));
+        boutonPoints.setFont(font);
+        boutonPoints.setForeground(Color.BLACK);
+        boutonPoints.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Rendupanier rp = new Rendupanier(1, 
+                RenduPanier rp = new RenduPanier(1, 
                         panneau.getEquipe("GREEN").getTerrain().getFirst().getNum(),
                         "GREEN", panneau);
             }
@@ -103,7 +103,7 @@ public class Menu extends JFrame {
                 fermer();
                 int numeroSortant = panneau.getEquipe("GREEN").getTerrain().getFirst().getNum();
                 int numeroEntrant = panneau.getEquipe("GREEN").getBanc().getFirst().getNum();
-                Renduchangement rp = new Renduchangement(numeroSortant, 
+                RenduChangement rp = new RenduChangement(numeroSortant, 
                         numeroEntrant, "GREEN", panneau);
             }
         });
@@ -133,9 +133,9 @@ public class Menu extends JFrame {
         });
         
         JPanel all = new JPanel();
-        all.add(b1);
-        all.add(b2);
-        all.add(b3);
+        all.add(boutonBase);
+        all.add(boutonFaute);
+        all.add(boutonPoints);
         all.add(boutonChangement);
         all.add(boutonChronometre);
         all.add(boutonTempsMort);

@@ -25,7 +25,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author halbg
  */
-public class Rendupanier extends JFrame {
+public class RenduPanier extends JFrame {
 
     private Panneau pann;
     private String couleur;
@@ -34,7 +34,7 @@ public class Rendupanier extends JFrame {
     private int X = 700;
     private int Y = 500;
 
-    public Rendupanier(int nombre, int n, String c, Panneau panno) {
+    public RenduPanier(int nombre, int n, String c, Panneau panno) {
 
         this.pann = panno;
         this.couleur = c;
@@ -220,7 +220,7 @@ public class Rendupanier extends JFrame {
         try {
             marqueur = pann.getEquipe(c).getJoueurEquipe(n);
         } catch (Exception ex) {
-            Logger.getLogger(Rendupanier.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RenduPanier.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (marqueur != null) {
             if (nombre == 1) {
@@ -239,7 +239,7 @@ public class Rendupanier extends JFrame {
         try {
             marqueur = pann.getEquipe(c).getJoueurEquipe(n);
         } catch (Exception ex) {
-            Logger.getLogger(Rendupanier.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RenduPanier.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (marqueur != null) {
             if (nombre == 1) {

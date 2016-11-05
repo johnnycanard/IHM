@@ -58,7 +58,7 @@ public class Nombrepoints extends JFrame {
         pt1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(1, nok, cok, pann);
+                    RenduPanier rp = new RenduPanier(1, nok, cok, pann);
             }
         });
         
@@ -69,7 +69,7 @@ public class Nombrepoints extends JFrame {
         pt2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(2, nok, cok, pann);
+                    RenduPanier rp = new RenduPanier(2, nok, cok, pann);
             }
         });
         
@@ -80,7 +80,7 @@ public class Nombrepoints extends JFrame {
         pt3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Rendupanier rp = new Rendupanier(3, nok, cok, pann);
+                    RenduPanier rp = new RenduPanier(3, nok, cok, pann);
             }
         });
         

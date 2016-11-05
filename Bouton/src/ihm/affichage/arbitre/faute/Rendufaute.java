@@ -28,28 +28,26 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 public class Rendufaute extends JFrame {
 
     private Panneau panneau;
-
     private String typeFaute;
-    private int numeroJoueur = 0;
+    private int numeroJoueur;
     private String couleur;
 
-    private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Rendufaute(String s, int n, String c, Panneau panneau) {
-
+    public Rendufaute(String type, int num, String coul, Panneau panneau) {
         this.panneau = panneau;
-        this.typeFaute = s;
-        this.numeroJoueur = n;
-        this.couleur = c;
+        this.typeFaute = type;
+        this.numeroJoueur = num;
+        this.couleur = coul;
 
-        final String sok = s;
-        final int nok = this.numeroJoueur;
-
+        panneau.arretChronometre();
+        
         validerFaute();
         panneau.repaint();
 
+        System.out.println("Classe name: " + this.getClass().getSimpleName());
+        
         this.setTitle("Rendu Faute");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,25 +69,15 @@ public class Rendufaute extends JFrame {
         boutonFaute.setPreferredSize(new Dimension(X / 2, Y / 2 - 20));
         boutonFaute.setBackground(Color.WHITE);
         boutonFaute.setFont(fontFaute);
-        boutonFaute.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    annulerFaute();
-                } catch (Exception ex) {
-                    Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                fermer();
-                if (couleur.equals("RED")) {
-                    Typefaute tf = new Typefaute(numeroJoueur, "RED", panneau);
-                } else if (couleur.equals("BLUE")) {
-                    Typefaute tf = new Typefaute(numeroJoueur, "BLUE", panneau);
-                } else if (couleur.equals("GREEN")) {
-                    Typefaute tf = new Typefaute(numeroJoueur, "GREEN", panneau);
-                } else if (couleur.equals("WHITE")) {
-                    Typefaute tf = new Typefaute(numeroJoueur, "WHITE", panneau);
-                }
-                panneau.repaint();
+        boutonFaute.addActionListener((ActionEvent event) -> {
+            try {
+                annulerFaute();
+            } catch (Exception ex) {
+                Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
             }
+            fermer();
+            Typefaute tf = new Typefaute(numeroJoueur, couleur, panneau);
+            panneau.repaint();
         });
 
         // Numéro de joueur
@@ -97,118 +85,46 @@ public class Rendufaute extends JFrame {
         boutonNumero.setPreferredSize(new Dimension(X / 2, Y / 2 - 20));
         boutonNumero.setBackground(Color.WHITE);
         boutonNumero.setFont(fontNum);
-        boutonNumero.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    annulerFaute();
-                } catch (Exception ex) {
-                    Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                fermer();
-                if (couleur.equals("RED")) {
-                    NumeroFaute nf = new NumeroFaute(typeFaute, "RED", panneau);
-                } else if (couleur.equals("BLUE")) {
-                    NumeroFaute nf = new NumeroFaute(typeFaute, "BLUE", panneau);
-                } else if (couleur.equals("GREEN")) {
-                    NumeroFaute nf = new NumeroFaute(typeFaute, "GREEN", panneau);
-                } else if (couleur.equals("WHITE")) {
-                    NumeroFaute nf = new NumeroFaute(typeFaute, "WHITE", panneau);
-                }
-                panneau.repaint();
+        boutonNumero.addActionListener((ActionEvent event) -> {
+            try {
+                annulerFaute();
+            } catch (Exception ex) {
+                Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
             }
+            fermer();
+            NumeroFauteTerrain nf = new NumeroFauteTerrain(typeFaute, couleur, panneau);
+            panneau.repaint();
         });
 
-        // Couleur d'équipe
-        JButton boutonCouleur = new JButton("AUTRE");
-        boutonCouleur.setForeground(Color.WHITE);
-        if (c.equals("RED")) {
-            boutonCouleur.setBackground(Color.RED);
-            boutonCouleur.setText("ROUGE");
-        } else if (c.equals("BLUE")) {
-            boutonCouleur.setBackground(Color.BLUE);
-            boutonCouleur.setText("BLEU");
-        } else if (c.equals("GREEN")) {
-            boutonCouleur.setBackground(Color.GREEN);
-            boutonCouleur.setText("VERT");
-        } else if (c.equals("BLACK")) {
-            boutonCouleur.setBackground(Color.BLACK);
-            boutonCouleur.setText("NOIR");
-        } else {
-            boutonCouleur.setBackground(Color.WHITE);
-            boutonCouleur.setForeground(Color.BLACK);
-            boutonCouleur.setText("BLANC");
-        }
+        JButton boutonCouleur = new JButton("");
+        peindreBoutonCouleur(boutonCouleur);
         boutonCouleur.setFont(fontCouleur);
         boutonCouleur.setPreferredSize(new Dimension(X, Y / 2));
-        boutonCouleur.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                try {
-                    annulerFaute();
-                } catch (Exception ex) {
-                    Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (couleur.equals(panneau.getVisiteurs().getCouleur())) {
-                    couleur = panneau.getLocaux().getCouleur(); 
-                    if (couleur.equals("RED")) {
-                        boutonCouleur.setBackground(Color.RED);
-                        boutonCouleur.setText("ROUGE");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLUE")) {
-                        boutonCouleur.setBackground(Color.BLUE);
-                        boutonCouleur.setText("BLEU");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("GREEN")) {
-                        boutonCouleur.setBackground(Color.GREEN);
-                        boutonCouleur.setText("VERT");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLACK")) {
-                        boutonCouleur.setBackground(Color.BLACK);
-                        boutonCouleur.setText("NOIR");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else {
-                        boutonCouleur.setBackground(Color.WHITE);
-                        boutonCouleur.setForeground(Color.BLACK);
-                        boutonCouleur.setText("BLANC");
-                    }
-                } else {
-                    couleur = panneau.getVisiteurs().getCouleur();
-                    if (couleur.equals("RED")) {
-                        boutonCouleur.setBackground(Color.RED);
-                        boutonCouleur.setText("ROUGE");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLUE")) {
-                        boutonCouleur.setBackground(Color.BLUE);
-                        boutonCouleur.setText("BLEU");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("GREEN")) {
-                        boutonCouleur.setBackground(Color.GREEN);
-                        boutonCouleur.setText("VERT");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLACK")) {
-                        boutonCouleur.setBackground(Color.BLACK);
-                        boutonCouleur.setText("NOIR");
-                        boutonCouleur.setForeground(Color.WHITE);
-                    } else {
-                        boutonCouleur.setBackground(Color.WHITE);
-                        boutonCouleur.setForeground(Color.BLACK);
-                        boutonCouleur.setText("BLANC");
-                    }
-                }
-                validerFaute();
-                boutonNumero.setText(Integer.toString(numeroJoueur));
-                panneau.repaint();
+        boutonCouleur.addActionListener((ActionEvent event) -> {
+            try {
+                annulerFaute();
+            } catch (Exception ex) {
+                Logger.getLogger(Rendufaute.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (couleur.equals(panneau.getVisiteurs().getCouleur())) {
+                couleur = panneau.getLocaux().getCouleur();
+                peindreBoutonCouleur(boutonCouleur);
+            } else {
+                couleur = panneau.getVisiteurs().getCouleur();
+                peindreBoutonCouleur(boutonCouleur);
+            }
+            validerFaute();
+            boutonNumero.setText(Integer.toString(numeroJoueur));
+            panneau.repaint();
         });
         JButton retour = new JButton("R");
         retour.setPreferredSize(new Dimension(X, 3));
         retour.setBackground(Color.WHITE);
         retour.setFont(fontNum);
-        retour.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                Menu menu = new Menu(panneau);
-                panneau.repaint();
-            }
+        retour.addActionListener((ActionEvent event) -> {
+            fermer();
+            Menu menu = new Menu(panneau);
+            panneau.repaint();
         });
 
         JPanel all = new JPanel();
@@ -218,7 +134,6 @@ public class Rendufaute extends JFrame {
         all.add(retour);
         all.setBackground(Color.WHITE);
 
-        content.repaint();
         this.setContentPane(all);
         this.setVisible(true);
     }
@@ -227,7 +142,7 @@ public class Rendufaute extends JFrame {
         this.dispose();
     }
 
-    public void annulerFaute() throws Exception{
+    public void annulerFaute() throws Exception {
         Joueur fautif;
         try {
             fautif = panneau.getEquipe(this.couleur).getJoueurEquipe(this.numeroJoueur);
@@ -236,12 +151,18 @@ public class Rendufaute extends JFrame {
             throw new Exception(this.numeroJoueur + " " + this.couleur + "pas sur le terrain");
         }
         if (fautif != null) {
-            if (this.typeFaute.equals("FAUTE")) {
-                fautif.decrFautes();
-            } else if (this.typeFaute.equals("SPORT")) {
-                fautif.decrSport();
-            } else if (this.typeFaute.equals("TECH")) {
-                fautif.decrTech();
+            switch (this.typeFaute) {
+                case "FAUTE":
+                    fautif.decrFautes();
+                    break;
+                case "SPORT":
+                    fautif.decrSport();
+                    break;
+                case "TECH":
+                    fautif.decrTech();
+                    break;
+                default:
+                    break;
             }
             panneau.getEquipe(this.couleur).decrFautes();
         }
@@ -260,14 +181,52 @@ public class Rendufaute extends JFrame {
         }
         
         if (fautif != null) {
-            if (this.typeFaute.equals("FAUTE")) {
-                fautif.incrFautes();
-            } else if (this.typeFaute.equals("SPORT")) {
-                fautif.incrSport();
-            } else if (this.typeFaute.equals("TECH")) {
-                fautif.incrTech();
+            switch (this.typeFaute) {
+                case "FAUTE":
+                    fautif.incrFautes();
+                    break;
+                case "SPORT":
+                    fautif.incrSport();
+                    break;
+                case "TECH":
+                    fautif.incrTech();
+                    break;
+                default:
+                    break;
             }
             panneau.getEquipe(this.couleur).incrFautes();
+        }
+        
+        if (panneau.getEquipe(this.couleur).surBanc(fautif) && typeFaute.equals("FAUTE")) {
+            System.out.println("Un joueur sur le banc ne peut pas avoir une faute simple");
+            // TODO: générer une erreur
+        }
+    }
+    
+    private void peindreBoutonCouleur(JButton boutonCouleur) {
+        boutonCouleur.setForeground(Color.WHITE);
+        switch (couleur) {
+            case "RED":
+                boutonCouleur.setBackground(Color.RED);
+                boutonCouleur.setText("ROUGE");
+                break;
+            case "BLUE":
+                boutonCouleur.setBackground(Color.BLUE);
+                boutonCouleur.setText("BLEU");
+                break;
+            case "GREEN":
+                boutonCouleur.setBackground(Color.GREEN);
+                boutonCouleur.setText("VERT");
+                break;
+            case "BLACK":
+                boutonCouleur.setBackground(Color.BLACK);
+                boutonCouleur.setText("NOIR");
+                break;
+            default:
+                boutonCouleur.setBackground(Color.WHITE);
+                boutonCouleur.setForeground(Color.BLACK);
+                boutonCouleur.setText("BLANC");
+                break;
         }
     }
 }

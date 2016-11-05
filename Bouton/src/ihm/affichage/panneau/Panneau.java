@@ -9,6 +9,11 @@ import java.awt.Font; // Pour la police d'écriture
 
 public class Panneau extends JPanel {
 
+    private static int YCOURANT = 0;
+    private static int TAILLECOURANTE = 0;
+    private static int MARGE = 20;
+    private static int ECARTVISITEURSLOCAUX = 440;
+
     /* Les deux équipes */
     private Equipe locaux;
     private Equipe visiteurs;
@@ -16,14 +21,19 @@ public class Panneau extends JPanel {
     /* Quart-temps en cours */
     private int QT = 1;
 
-    private int posX = 0;
-    private int posY = 0;
-
     private Chronometre chrono = new Chronometre();
     private boolean chronometre = true;
 
     public void setBool(boolean b) {
         this.chronometre = b;
+    }
+    
+    public void arretChronometre() {
+        this.chronometre = false;
+    }
+    
+    public void lancerChronometre() {
+        this.chronometre = true;
     }
     
     public boolean getBool() {
@@ -74,22 +84,6 @@ public class Panneau extends JPanel {
         this.QT = i;
     }
 
-    public int getPosX() {
-        return this.posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public int getPosY() {
-        return this.posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
-
     public void defLocaux() {
         locaux = new Equipe("Espagne", "WHITE");
 
@@ -124,7 +118,7 @@ public class Panneau extends JPanel {
         Joueur maman = new Joueur(24, "Papa");
         locaux.ajouterJoueur(maman);
         locaux.ajouterBanc(maman);
-
+        locaux.trier();
     }
 
     public void defVisiteurs() {
@@ -161,6 +155,7 @@ public class Panneau extends JPanel {
         Joueur maman = new Joueur(24, "Maman");
         visiteurs.ajouterJoueur(maman);
         visiteurs.ajouterBanc(maman);
+        visiteurs.trier();
     }
 
     @Override
@@ -181,110 +176,164 @@ public class Panneau extends JPanel {
         Font font = new Font("Courier", Font.BOLD, 100);
         g.setFont(font);
         g.setColor(Color.BLACK);
-        String s = new String();
 
         /* ---------------------  CHRONOMETRE  ---------------------- */
+        String quartTemps;
         if (QT == 1) {
-            s = Integer.toString(QT) + "er Quart-Temps";
+            quartTemps = Integer.toString(QT) + "er Quart-Temps";
         } else {
-            s = Integer.toString(QT) + "e Quart-Temps";
+            quartTemps = Integer.toString(QT) + "e Quart-Temps";
         }
 
-        font = new Font("Courier", Font.BOLD, 75);
+        YCOURANT = 50;
+        TAILLECOURANTE = 50;
+        font = new Font("Courier", Font.BOLD, TAILLECOURANTE);
         g.setFont(font);
-        g.drawString(s, 65, 50);
-
-        if (this.chrono.getTime() >= 10) {
-            s = Integer.toString(this.chrono.getTime());
+        
+        MARGE = 125;
+        g.drawString(quartTemps, MARGE, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 10;
+        
+        String tempsPossession;
+        if (this.chrono.getTempsPossession() >= 10) {
+            tempsPossession = Integer.toString(this.chrono.getTempsPossession());
         } else {
-            s = "0" + Integer.toString(this.chrono.getTime());
+            tempsPossession = "0" + Integer.toString(this.chrono.getTempsPossession());
         }
-
-        g.drawString(s, 352, 150);
-
+        MARGE = 352;
+        g.drawString(tempsPossession, MARGE, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 10;
+        
+        String temps;
         if (this.chrono.getMinutes() == 0) {
-            s = Integer.toString(this.chrono.getSec())
+            temps = Integer.toString(this.chrono.getSec())
                     + ":" + Integer.toString(this.chrono.getCentieme());
         } else if (this.chrono.getMinutes() < 10) {
             if (this.chrono.getSec() >= 10) {
-                s = "0" + Integer.toString(this.chrono.getMinutes())
+                temps = "0" + Integer.toString(this.chrono.getMinutes())
                         + ":" + Integer.toString(this.chrono.getSec());
             } else {
-                s = "0" + Integer.toString(this.chrono.getMinutes()) + ":"
+                temps = "0" + Integer.toString(this.chrono.getMinutes()) + ":"
                         + "0" + Integer.toString(this.chrono.getSec());
             }
         } else {
-            s = Integer.toString(this.chrono.getMinutes()) + ":"
+            temps = Integer.toString(this.chrono.getMinutes()) + ":"
                     + Integer.toString(this.chrono.getSec()) + "0";
         }
-
-        g.drawString(s, 287, 250);
+        MARGE = 287;
+        g.drawString(temps, MARGE, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 10;
 
 
         /* ---------------------  FIN CHRONOMETRE  ---------------------- */
         /* ---------------------       SCORE       ---------------------- */
-        
-        s = visiteurs.getNom() + " : " + Integer.toString(visiteurs.getPoints());
-        font = new Font("Courier", Font.BOLD, 50);
-        g.setFont(font);
-        g.drawString(s, 8, 350);
-
-        s = "Fautes : " + Integer.toString(visiteurs.getFautes());
-        font = new Font("Courier", Font.BOLD, 30);
-        g.setFont(font);
-        g.drawString(s, 8, 380);
-
-        s = locaux.getNom() + " : " + Integer.toString(locaux.getPoints());
-        font = new Font("Courier", Font.BOLD, 50);
-        g.setFont(font);
-        g.drawString(s, 450, 350);
-
-        s = "Fautes : " + Integer.toString(locaux.getFautes());
-        font = new Font("Courier", Font.BOLD, 30);
-        g.setFont(font);
-        g.drawString(s, 450, 380);
-
-        /* COMPOSITIONS D'EQUIPE + NbPoint + NbFautes */
-        font = new Font("Courier", Font.BOLD, 20);
-        g.setFont(font);
-
-        s = "Num";
-        g.drawString(s, 460, 400);
-        s = "Points";
-        g.drawString(s, 530, 400);
-        s = "Fautes";
-        g.drawString(s, 635, 400);
-
-        int i = 0;
-        for (Joueur j : locaux.getTeam()) {
-            i++;
-            s = Integer.toString(j.getNum());
-            g.drawString(s, 470, 400 + 20 * i);
-            s = Integer.toString(j.getNbPoints());
-            g.drawString(s, 550, 400 + 20 * i);
-            s = Integer.toString(j.getTotalFautes());
-            g.drawString(s, 650, 400 + 20 * i);
-        }
-
-        s = "Num";
-        g.drawString(s, 20, 400);
-        s = "Points";
-        g.drawString(s, 80, 400);
-        s = "Fautes";
-        g.drawString(s, 185, 400);
-
-        i = 0;
-        for (Joueur j : visiteurs.getTeam()) {
-            i++;
-            s = Integer.toString(j.getNum());
-            g.drawString(s, 20, 400 + 20 * i);
-            s = Integer.toString(j.getNbPoints());
-            g.drawString(s, 100, 400 + 20 * i);
-            s = Integer.toString(j.getTotalFautes());
-            g.drawString(s, 200, 400 + 20 * i);
-
-        }
+        MARGE = 20;
+        drawScore(g);
+        drawTempsMorts(g);
+        drawFautes(g);
+        drawCompositionEquipes(g);
 
         /* ---------------------- FIN PANNEAU AFFICHAGE --------------------- */
+    }
+    
+    public void drawCompositionEquipes(Graphics graphic) {
+        TAILLECOURANTE = 20;
+        Font font = new Font("Courier", Font.BOLD, TAILLECOURANTE);
+        graphic.setFont(font);
+
+        String statistiquesJoueur = "Num";
+        graphic.drawString(statistiquesJoueur, MARGE, YCOURANT);
+        graphic.drawString(statistiquesJoueur, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        statistiquesJoueur = "Points";
+        graphic.drawString(statistiquesJoueur, MARGE + 80, YCOURANT);
+        graphic.drawString(statistiquesJoueur, MARGE + 80 + ECARTVISITEURSLOCAUX, YCOURANT);
+        statistiquesJoueur = "Fautes";
+        graphic.drawString(statistiquesJoueur, MARGE + 180, YCOURANT);
+        graphic.drawString(statistiquesJoueur, MARGE + 180 + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
+        
+        graphic.drawString("Terrain", MARGE, YCOURANT);
+        graphic.drawString("Terrain", MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
+
+        for (Joueur joueur : visiteurs.getTerrain()) {
+            statistiquesJoueur = Integer.toString(joueur.getNum());
+            graphic.drawString(statistiquesJoueur, MARGE, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getNbPoints());
+            graphic.drawString(statistiquesJoueur, MARGE + 80, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getTotalFautes());
+            graphic.drawString(statistiquesJoueur, MARGE + 180, YCOURANT);
+            YCOURANT += TAILLECOURANTE + 5;
+        }
+        YCOURANT -= (TAILLECOURANTE + 5)*visiteurs.getTerrain().size();
+
+        for (Joueur joueur : locaux.getTerrain()) {
+        statistiquesJoueur = Integer.toString(joueur.getNum());
+            graphic.drawString(statistiquesJoueur, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getNbPoints());
+            graphic.drawString(statistiquesJoueur, MARGE + 80 + ECARTVISITEURSLOCAUX, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getTotalFautes());
+            graphic.drawString(statistiquesJoueur, MARGE + 180 + ECARTVISITEURSLOCAUX, YCOURANT);
+            YCOURANT += TAILLECOURANTE + 5;
+        }
+        
+        graphic.drawString("Banc", MARGE, YCOURANT);
+        graphic.drawString("Banc", MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
+        
+        for (Joueur joueur : locaux.getBanc()) {
+            statistiquesJoueur = Integer.toString(joueur.getNum());
+            graphic.drawString(statistiquesJoueur, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getNbPoints());
+            graphic.drawString(statistiquesJoueur, MARGE + 80 + ECARTVISITEURSLOCAUX, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getTotalFautes());
+            graphic.drawString(statistiquesJoueur, MARGE + 180 + ECARTVISITEURSLOCAUX, YCOURANT);
+            YCOURANT += TAILLECOURANTE + 5;
+        }
+        YCOURANT -= (TAILLECOURANTE + 5)*locaux.getBanc().size();
+
+        for (Joueur joueur : visiteurs.getBanc()) {
+            statistiquesJoueur = Integer.toString(joueur.getNum());
+            graphic.drawString(statistiquesJoueur, MARGE, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getNbPoints());
+            graphic.drawString(statistiquesJoueur, MARGE + 80, YCOURANT);
+            statistiquesJoueur = Integer.toString(joueur.getTotalFautes());
+            graphic.drawString(statistiquesJoueur, MARGE + 180, YCOURANT);
+            YCOURANT += TAILLECOURANTE + 5;
+        }
+    }
+    
+    public void drawFautes(Graphics graphic) {
+        TAILLECOURANTE = 30;
+        Font font = new Font("Courier", Font.BOLD, TAILLECOURANTE);
+        graphic.setFont(font);
+        String fautesVisiteurs = "Fautes : " + Integer.toString(visiteurs.getFautes());
+        graphic.drawString(fautesVisiteurs, MARGE, YCOURANT);
+        String fautesLocaux = "Fautes : " + Integer.toString(locaux.getFautes());
+        graphic.drawString(fautesLocaux, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
+
+    }
+    
+    public void drawTempsMorts(Graphics graphic) {
+        TAILLECOURANTE = 30;
+        Font font = new Font("Courier", Font.BOLD, TAILLECOURANTE);
+        graphic.setFont(font);
+        String tempsMortsVisiteurs = "temps-morts : " + Integer.toString(visiteurs.getNbTM());
+        graphic.drawString(tempsMortsVisiteurs, MARGE, YCOURANT);                
+        String tempsMortsLocaux = "temps-mort : " + Integer.toString(locaux.getNbTM());
+        graphic.drawString(tempsMortsLocaux, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
+    }
+    
+    public void drawScore(Graphics graphic) {
+        TAILLECOURANTE = 30;
+        Font font = new Font("Courier", Font.BOLD, TAILLECOURANTE);
+        graphic.setFont(font);
+        String pointsVisiteurs = visiteurs.getNom() + " : " + Integer.toString(visiteurs.getPoints());
+        graphic.drawString(pointsVisiteurs, MARGE, YCOURANT);        
+        String pointsLocaux = locaux.getNom() + " : " + Integer.toString(locaux.getPoints());
+        graphic.drawString(pointsLocaux, MARGE + ECARTVISITEURSLOCAUX, YCOURANT);
+        YCOURANT += TAILLECOURANTE + 5;
     }
 }

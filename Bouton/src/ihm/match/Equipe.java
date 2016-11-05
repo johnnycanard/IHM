@@ -1,8 +1,6 @@
 package ihm.match;
 
-import java.awt.Color;
-import java.util.LinkedList;
-
+import java.util.Collections;
 import java.util.LinkedList;
 
 /*
@@ -24,7 +22,7 @@ public class Equipe {
     private LinkedList<Joueur> terrain;
     private LinkedList<Joueur> banc;
     private int nbTM;
-
+    
     public Equipe(String n, String c) {
         this.nom = n;
         this.couleur = c;
@@ -35,7 +33,24 @@ public class Equipe {
         this.banc = new LinkedList<Joueur>();
         this.nbTM = 0;
     }
+    
+    public int getNbTM() {
+        return nbTM;
+    }
 
+    // Verifier le nombre de temps mort maximal
+    public void incrNbTM() {
+        nbTM++;
+    }
+    
+    public void decrNbTM() throws Exception {
+        if (nbTM > 0) {
+            nbTM--;
+        } else {
+            throw new Exception("Nombre de temps mort ne peux pas être négatif:" + nbTM);
+        }
+    }
+    
     public void incrFautes() {
         this.fautes++;
     }
@@ -72,10 +87,37 @@ public class Equipe {
         }
         return false;
     }
+    
+    public boolean surTerrain(int numero) {
+        for (Joueur joueur : terrain) {
+            if (joueur.getNum() == numero) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean dansEquipe(int numero) {
+        for (Joueur joueur : team) {
+            if (joueur.getNum() == numero) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean surBanc(Joueur j) {
         for (Joueur j1 : banc) {
             if (j1.equals(j)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean surBanc(int numero) {
+        for (Joueur joueur : banc) {
+            if (joueur.getNum() == numero) {
                 return true;
             }
         }
@@ -96,7 +138,13 @@ public class Equipe {
             banc.remove(in);
             terrain.add(in);
             banc.add(out);
+            trier();
         }
+    }
+    
+    public void trier() {
+        Collections.sort(banc);
+        Collections.sort(terrain);
     }
 
     public void annulerChangement(Joueur in, Joueur out) {
@@ -170,11 +218,6 @@ public class Equipe {
                 return j1;
             }
         }
-        System.out.println("Joueur " + couleur + " sur le banc");
-        for (Joueur joueurBanc : getBanc()) {
-            System.out.println(joueurBanc.getNum());
-        }
-
         throw new Exception(n + " " + this.couleur + " pas sur le banc");
     }
     

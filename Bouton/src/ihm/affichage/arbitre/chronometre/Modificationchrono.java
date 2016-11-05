@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
@@ -24,79 +26,106 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * @author guillaumehalb
  */
 public class Modificationchrono extends JFrame {
-    
-    private Panneau pann;
+    private Panneau panneau;
 
-    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
     public Modificationchrono(Panneau panno) {
-
-        this.pann = panno;
+        this.panneau = panno;
         
         this.setTitle("Modification chrono");
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-
         try {
             UIManager.setLookAndFeel(new MetalLookAndFeel());
         } catch (Exception e) {
             System.out.println("Problème d'affichage");
         }
-
         Font font = new Font("Equipe", Font.BOLD, 150);
         Font fontMenu = new Font("Equipe", Font.BOLD, 70);
 
-        // Creation des 3 boutons :
-        // Moins de temps
-        JButton b1 = new JButton("-");
-        b1.setPreferredSize(new Dimension(X / 2, Y / 2));
-        b1.setBackground(Color.WHITE);
-        b1.setFont(font);
-        b1.addActionListener(new ActionListener() {
+        panneau.arretChronometre();
+        
+        JButton boutonMoinsChronometre = new JButton("-");
+        boutonMoinsChronometre.setPreferredSize(new Dimension(X/2, 13*Y/32));
+        boutonMoinsChronometre.setBackground(Color.WHITE);
+        boutonMoinsChronometre.setFont(font);
+        boutonMoinsChronometre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps --
-                pann.setBool(false);
-                pann.getChrono().decr();
-                pann.repaint();
+                panneau.getChrono().decrementeChronometre();
+                panneau.repaint();
             }
         });
 
-        // Plus de temps
-        JButton b2 = new JButton("+");
-        b2.setPreferredSize(new Dimension(X / 2, Y / 2));
-        b2.setBackground(Color.WHITE);
-        b2.setFont(font);
-        b2.addActionListener(new ActionListener() {
+        JButton boutonPlusChronometre = new JButton("+");
+        boutonPlusChronometre.setPreferredSize(new Dimension(X/2, 13*Y/32));
+        boutonPlusChronometre.setBackground(Color.WHITE);
+        boutonPlusChronometre.setFont(font);
+        boutonPlusChronometre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                // Temps ++
-                pann.setBool(false);
-                pann.getChrono().incr();
-                pann.repaint();
+                panneau.getChrono().incrementeChronometre();
+                panneau.repaint();
             }
         });
 
+        JButton boutonMoinsPossession = new JButton("-");
+        boutonMoinsPossession.setPreferredSize(new Dimension(X/2, 13*Y/32));
+        boutonMoinsPossession.setBackground(Color.WHITE);
+        boutonMoinsPossession.setFont(font);
+        boutonMoinsPossession.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                panneau.getChrono().decrementePossession();
+                panneau.repaint();
+            }
+        });
+
+        JButton boutonPlusPossession = new JButton("+");
+        boutonPlusPossession.setPreferredSize(new Dimension(X/2, 13*Y/32));
+        boutonPlusPossession.setBackground(Color.WHITE);
+        boutonPlusPossession.setFont(font);
+        boutonPlusPossession.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                panneau.getChrono().incrementePossession();
+                panneau.repaint();
+            }
+        });
+        
         // Retour
-        JButton base = new JButton("Menu");
-        base.setBackground(Color.WHITE);
-        base.setPreferredSize(new Dimension(X, Y / 2));
-        base.setFont(fontMenu);
-        base.setForeground(Color.BLACK);
-        base.addActionListener(new ActionListener() {
+        JButton retour = new JButton("Menu");
+        retour.setBackground(Color.WHITE);
+        retour.setPreferredSize(new Dimension(X, 3));
+        retour.setFont(fontMenu);
+        retour.setForeground(Color.BLACK);
+        retour.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 fermer();
-                Menu maxibestof = new Menu(pann);
-                pann.repaint();
+                Menu maxibestof = new Menu(panneau);
+                panneau.repaint();
             }
         });
 
+        JLabel stringChronometre = new JLabel("Chronometre");
+        stringChronometre.setPreferredSize(new Dimension(X, Y/16));
+        stringChronometre.setFont(new Font("", Font.BOLD, 30));
+        stringChronometre.setHorizontalAlignment(JLabel.CENTER);
+        stringChronometre.setVerticalAlignment(JLabel.CENTER);
+        JLabel stringPossession = new JLabel("Possession");
+        stringPossession.setPreferredSize(new Dimension(X, Y/16));    
+        stringPossession.setFont(new Font("", Font.BOLD, 30));
+        stringPossession.setHorizontalAlignment(JLabel.CENTER);
+        stringPossession.setVerticalAlignment(JLabel.CENTER);
+        
         JPanel all = new JPanel();
-        all.add(b1);
-        all.add(b2);
-        all.add(base);
+        all.add(stringChronometre);
+        all.add(boutonMoinsChronometre);
+        all.add(boutonPlusChronometre);
+        all.add(stringPossession);
+        all.add(boutonMoinsPossession);
+        all.add(boutonPlusPossession);
+        all.add(retour);
         all.setBackground(Color.WHITE);
 
         content.repaint();

@@ -16,21 +16,21 @@ public class Chronometre {
     private int centieme = 0;
 
     /* Temps de possession */ 
-    private int time = 24;
+    private int tempsPossession = 24;
     
     public Chronometre() {
         this.min = 10;
         this.sec = 0;
         this.centieme = 0;
-        this.time = 24;
+        this.tempsPossession = 24;
     }
 
-    public int getTime() {
-        return this.time;
+    public int getTempsPossession() {
+        return this.tempsPossession;
     }
     
     public void setTime(int i) {
-        this.time = i;
+        this.tempsPossession = i;
     }
     
     public int getMinutes() {
@@ -58,36 +58,36 @@ public class Chronometre {
     }
     
     public int getPossession() {
-        return this.time;
+        return this.tempsPossession;
     }
     
     public void reinitChrono() {
 	this.min = 10;
 	this.sec = 0;
 	this.centieme = 0;
-	this.time = 24;
+	this.tempsPossession = 24;
     }
     
     public void reinit24() {
-	this.time = 24;
+	this.tempsPossession = 24;
     }
     
     public void reinit14() {
-        if (this.time <= 14) 
-            this.time = 14;
+        if (this.tempsPossession <= 14) 
+            this.tempsPossession = 14;
     }
     
-    public void incr() {
+    public void incrementeChronometre() {
         if (!(sec == 0 && min == 10)) {
             sec++;
             if (sec == 60) {
                 sec = 0;
                 min++;
             }
-    }
+        }
     }
     
-    public void decr() {
+    public void decrementeChronometre() {
         if (!(sec == 0 
                 && min == 0 
                 && centieme == 0)) {
@@ -99,4 +99,15 @@ public class Chronometre {
         }
     }
 
+    public void incrementePossession() {
+        if(tempsPossession < 24) {
+            this.tempsPossession++;
+        }
+    }
+    
+    public void decrementePossession() {
+        if (tempsPossession > 0) {
+            this.tempsPossession--;
+        }
+    }
 }

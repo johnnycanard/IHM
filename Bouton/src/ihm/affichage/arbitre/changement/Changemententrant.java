@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,21 +26,22 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Changemententrant extends JFrame {
 
-    private Panneau pann;
+    private Panneau panneau;
 
-    String couleur; // couleur du joueur sortant
-    int sortant; // numéro du joueur sortant 
-
+    private String couleurSortant;
+    private int numeroSortant;
+    private LinkedList<JButton> listeJoueurEntrant = new LinkedList<JButton>();
+    private String couleurInitiale;
+    
     private JPanel content = new JPanel();
     private int X = 700;
     private int Y = 500;
 
-    public Changemententrant(int sort, String c, Panneau panno) {
-
-        this.pann = panno;
-
-        this.sortant = sort;
-        this.couleur = c;
+    public Changemententrant(int sortant, String coul, Panneau panneau) {
+        this.couleurInitiale = coul;
+        this.panneau = panneau;
+        this.numeroSortant = sortant;
+        this.couleurSortant = coul;
 
         this.setTitle("Joueur Entrant");
         this.setSize(X + 20, Y + 20);
@@ -55,102 +57,84 @@ public class Changemententrant extends JFrame {
         JPanel all = new JPanel();
         Font font = new Font("Joueurs", Font.BOLD, 100);
 
-        Equipe eq = pann.getEquipe(c);
-
-        for (Joueur j1 : eq.getBanc()) {
-            JButton j = new JButton(Integer.toString(j1.getNum()));
-            j.setFont(font);
-            j.setBackground(Color.WHITE);
-            j.setPreferredSize(new Dimension(X / 3, Y / 2));
-            final Joueur j1ok = j1;
-            j.addActionListener(new ActionListener() {
+        Equipe equipe = panneau.getEquipe(couleurSortant);
+        
+        for (Joueur joueur : equipe.getBanc()) {
+            JButton boutonJoueurCourant = new JButton(Integer.toString(joueur.getNum()));
+            boutonJoueurCourant.setFont(font);
+            boutonJoueurCourant.setBackground(Color.WHITE);
+            boutonJoueurCourant.setPreferredSize(new Dimension(X / 3, Y / 2));
+            boutonJoueurCourant.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent event) {
                     fermer();
-                    Renduchangement rc = new Renduchangement(sortant, j1ok.getNum(), couleur, pann);
+                    if (!couleurInitiale.equals(couleurSortant)) {
+                        if (!panneau.getEquipe(couleurSortant).surTerrain(numeroSortant)) {
+                            numeroSortant = panneau.getEquipe(couleurSortant).getTerrain().getFirst().getNum();
+                        }
+                    }
+                    RenduChangement rc = new RenduChangement(numeroSortant, 
+                            Integer.parseInt(boutonJoueurCourant.getText()), couleurSortant, panneau);
                 }
             });
-            all.add(j);
+            listeJoueurEntrant.add(boutonJoueurCourant);
+            all.add(boutonJoueurCourant);
         }
 
-        JButton j = new JButton(c);
+        JButton boutonCouleur = new JButton(couleurSortant);
         Font changeFont = new Font("Couleur", Font.BOLD, 60);
-        j.setFont(changeFont);
-        j.setForeground(Color.WHITE);
-        j.setPreferredSize(new Dimension(X / 3, Y / 2));
-        if (c.equals("RED")) {
-            j.setBackground(Color.RED);
-        } else if (c.equals("BLUE")) {
-            j.setBackground(Color.BLUE);
-        } else if (c.equals("GREEN")) {
-            j.setBackground(Color.GREEN);
-        } else if (c.equals("BLACK")) {
-            j.setBackground(Color.BLACK);
-        } else {
-            j.setBackground(Color.WHITE);
-            j.setForeground(Color.BLACK);
-        }
-        j.addActionListener(new ActionListener() {
+        boutonCouleur.setFont(changeFont);
+        boutonCouleur.setPreferredSize(new Dimension(X / 3, Y / 2));
+        peindreBoutonCouleur(boutonCouleur);
+        
+        boutonCouleur.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 // fermer();
                 // Couleurchangement cc = new Couleurchangement(1, entrant, pann);
-                if (couleur.equals(pann.getVisiteurs().getCouleur())) {
-                    couleur = pann.getLocaux().getCouleur();
-                    if (couleur.equals("RED")) {
-                        j.setBackground(Color.RED);
-                        j.setText("ROUGE");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLUE")) {
-                        j.setBackground(Color.BLUE);
-                        j.setText("BLEU");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("GREEN")) {
-                        j.setBackground(Color.GREEN);
-                        j.setText("VERT");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLACK")) {
-                        j.setBackground(Color.BLACK);
-                        j.setText("NOIR");
-                        j.setForeground(Color.WHITE);
-                    } else {
-                        j.setBackground(Color.WHITE);
-                        j.setForeground(Color.BLACK);
-                        j.setText("BLANC");
+                if (couleurSortant.equals(panneau.getVisiteurs().getCouleur())) {
+                    Equipe locaux = panneau.getLocaux();
+                    couleurSortant = locaux.getCouleur();
+                    peindreBoutonCouleur(boutonCouleur);
+                    for (int i = 0; i < listeJoueurEntrant.size(); i++) {
+                        listeJoueurEntrant.get(i).setText(Integer.toString(locaux.getBanc().get(i).getNum()));
                     }
                 } else {
-                    couleur = pann.getVisiteurs().getCouleur();
-                    if (couleur.equals("RED")) {
-                        j.setBackground(Color.RED);
-                        j.setText("ROUGE");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLUE")) {
-                        j.setBackground(Color.BLUE);
-                        j.setText("BLEU");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("GREEN")) {
-                        j.setBackground(Color.GREEN);
-                        j.setText("VERT");
-                        j.setForeground(Color.WHITE);
-                    } else if (couleur.equals("BLACK")) {
-                        j.setBackground(Color.BLACK);
-                        j.setText("NOIR");
-                        j.setForeground(Color.WHITE);
-                    } else {
-                        j.setBackground(Color.WHITE);
-                        j.setForeground(Color.BLACK);
-                        j.setText("BLANC");
+                    Equipe visiteurs = panneau.getVisiteurs();
+                    couleurSortant = panneau.getVisiteurs().getCouleur();
+                    peindreBoutonCouleur(boutonCouleur);
+                    for (int i = 0; i < listeJoueurEntrant.size(); i++) {
+                        listeJoueurEntrant.get(i).setText(Integer.toString(visiteurs.getBanc().get(i).getNum()));
                     }
                 }
-                pann.repaint();
+                panneau.repaint();
             }
         });
-        all.add(j);
-
+        all.add(boutonCouleur);
         content.repaint();
-
         this.setContentPane(all);
         this.setVisible(true);
     }
 
+    private void peindreBoutonCouleur(JButton boutonCouleur) {
+    boutonCouleur.setForeground(Color.WHITE);
+        if (couleurSortant.equals("RED")) {
+            boutonCouleur.setBackground(Color.RED);
+            boutonCouleur.setText("ROUGE");
+        } else if (couleurSortant.equals("BLUE")) {
+            boutonCouleur.setBackground(Color.BLUE);
+            boutonCouleur.setText("BLEU");
+        } else if (couleurSortant.equals("GREEN")) {
+            boutonCouleur.setBackground(Color.GREEN);
+            boutonCouleur.setText("VERT");
+        } else if (couleurSortant.equals("BLACK")) {
+            boutonCouleur.setBackground(Color.BLACK);
+            boutonCouleur.setText("NOIR");
+        } else {
+            boutonCouleur.setBackground(Color.WHITE);
+            boutonCouleur.setForeground(Color.BLACK);
+            boutonCouleur.setText("BLANC");
+        }
+    }
+    
     public void fermer() {
         this.dispose();
     }

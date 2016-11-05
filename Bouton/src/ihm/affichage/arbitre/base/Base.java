@@ -54,7 +54,7 @@ public class Base extends JFrame {
         b1.setFont(font);
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                if (panneau.getChrono().getTime() <= 14) {
+                if (panneau.getChrono().getTempsPossession() <= 14) {
                     panneau.getChrono().setTime(14);
                     panneau.repaint();
                 }
