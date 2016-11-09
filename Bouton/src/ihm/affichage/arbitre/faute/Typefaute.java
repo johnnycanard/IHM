@@ -23,7 +23,7 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  */
 public class Typefaute extends JFrame {
 
-        private Panneau pann;
+    private Panneau pann;
     
     String couleur;
     int num;

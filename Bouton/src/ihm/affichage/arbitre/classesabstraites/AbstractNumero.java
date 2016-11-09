@@ -18,11 +18,11 @@ import javax.swing.JButton;
  *
  * @author guillaumehalb
  */
-public class AbstractNumero extends AbstractSixCases {
+public class AbstractNumero extends AbstractWindow {
     protected LinkedList<Joueur> listeJoueur;
     
     public AbstractNumero(String couleur, Panneau panneau) {
-        super(couleur, panneau);
+        super(couleur, panneau, 6);
         if (this instanceof Numeropanier || this instanceof NumeroFauteTerrain) {
             listeJoueur = panneau.getEquipe(couleur).getTerrain();
         } else if (this instanceof NumeroFauteBanc) {

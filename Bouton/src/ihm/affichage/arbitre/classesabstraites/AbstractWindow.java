@@ -20,17 +20,21 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author guillaumehalb
  */
-public abstract class AbstractSixCases extends JFrame {
+public abstract class AbstractWindow extends JFrame {
     protected Panneau panneau;
     protected String couleurEquipe;
     protected LinkedList<JButton> listeBoutons = new LinkedList<JButton>();
-    // TODO: Les mettre en variables générales plus haut ou ailleurs
-    private int X = 700;
-    private int Y = 500;
+    protected JPanel jpanel;
+    private int nombreBoutons;
     
-    public AbstractSixCases(String couleur, Panneau panneau) {
-        this.panneau = panneau;
+    // TODO: Les mettre en variables générales plus haut ou ailleurs
+    protected int X = 700;
+    protected int Y = 500;  
+    
+    public AbstractWindow(String couleur, Panneau pann, int nombre) {
+        this.panneau = pann;
         this.couleurEquipe = couleur;
+        this.nombreBoutons = nombre;
         
         this.setTitle(getClass().getSimpleName());
         this.setSize(X + 20, Y + 20);
@@ -41,23 +45,38 @@ public abstract class AbstractSixCases extends JFrame {
         } catch (Exception e) {
             System.out.println("Problème d'affichage");
         }
-        
-        JPanel all = new JPanel();
+
+        this.jpanel = new JPanel();
         Font font = new Font("Joueurs", Font.BOLD, 100);
         
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < nombreBoutons; i++) {
             JButton boutonCourant = new JButton(Integer.toString(i));
             boutonCourant.setFont(font);
             boutonCourant.setBackground(Color.WHITE);
-            boutonCourant.setPreferredSize(new Dimension(X/3, Y/2));
-            all.add(boutonCourant);
+            if (nombreBoutons == 1) {
+                boutonCourant.setPreferredSize(new Dimension(X, Y));
+            }
+            if (nombreBoutons == 2) {
+                boutonCourant.setPreferredSize(new Dimension(X/2, Y));
+            }
+            if (nombreBoutons == 3) {
+                if (i < 2) {
+                    boutonCourant.setPreferredSize(new Dimension(X/2, Y/2 - 20));
+                } else {
+                    boutonCourant.setPreferredSize(new Dimension(X, Y/2 - 20));
+                }
+            } else if (nombreBoutons == 4) {
+                boutonCourant.setPreferredSize(new Dimension(X/2, Y/2));
+            } else if (nombreBoutons == 6) {
+                boutonCourant.setPreferredSize(new Dimension(X/3, Y/2));
+            }
+            jpanel.add(boutonCourant);    
             listeBoutons.add(boutonCourant);
         }
-     
-        this.setContentPane(all);
+        this.setContentPane(jpanel);
         this.setVisible(true);
     }
-    
+        
     public void fermer() {
         this.dispose();
     }
