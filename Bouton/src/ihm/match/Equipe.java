@@ -22,6 +22,7 @@ public class Equipe {
     private LinkedList<Joueur> terrain;
     private LinkedList<Joueur> banc;
     private int nbTM;
+    private int fautesEntraineur;
     
     public Equipe(String n, String c) {
         this.nom = n;
@@ -260,6 +261,10 @@ public class Equipe {
             return true;
         }
         return false;
+    }
+    
+    public void incrFautesEntraineur() {
+        fautesEntraineur++;
     }
 
     public String toString() {

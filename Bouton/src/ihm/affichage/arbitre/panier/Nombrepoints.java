@@ -1,17 +1,11 @@
 package ihm.affichage.arbitre.panier;
 
 import ihm.affichage.arbitre.base.Base;
+import ihm.affichage.arbitre.classesabstraites.AbstractWindow;
 import ihm.affichage.panneau.Panneau;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,92 +17,45 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  * @author halbg
  */
 
-public class Nombrepoints extends JFrame {
-
-    private Panneau pann;
+public class Nombrepoints extends AbstractWindow {
+    private int nombre;
     
-    private JPanel content = new JPanel();
-    private int X = 700;
-    private int Y = 500;
-
-    public Nombrepoints(int n, String c, Panneau panno) {
-
-        this.pann = panno;
-        
-	final String cok = c;
-	final int nok = n;
-	
-        this.setTitle("Nombre Points");
-        this.setSize(X + 20, Y + 20);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-
-        try {
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (Exception e) {
-            System.out.println("Problème d'affichage");
-        }
+    public Nombrepoints(int n, String coul, Panneau pann) {
+        super(coul, pann, 4);
+        this.nombre = n;
 
         Font fontNum = new Font("Numero", Font.BOLD, 150);
 
-        JButton pt1 = new JButton("1");
-        pt1.setBackground(Color.white);
-        pt1.setPreferredSize(new Dimension(X / 2, Y / 2));
-        pt1.setFont(fontNum);
-        pt1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    RenduPanier rp = new RenduPanier(1, nok, cok, pann);
-            }
+        JButton boutonUnPoint = listeBoutons.get(0);
+        boutonUnPoint.setText("1");
+        boutonUnPoint.setFont(fontNum);
+        boutonUnPoint.addActionListener((ActionEvent event) -> {
+            fermer();
+            RenduPanier rp = new RenduPanier(1, nombre, couleurEquipe, panneau);
         });
         
-        JButton pt2 = new JButton("2");
-        pt2.setBackground(Color.white);
-        pt2.setPreferredSize(new Dimension(X / 2, Y / 2));
-        pt2.setFont(fontNum);
-        pt2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    RenduPanier rp = new RenduPanier(2, nok, cok, pann);
-            }
+        JButton boutonDeuxPoints = listeBoutons.get(1);
+        boutonDeuxPoints.setText("2");
+        boutonDeuxPoints.setFont(fontNum);
+        boutonDeuxPoints.addActionListener((ActionEvent event) -> {
+            fermer();
+            RenduPanier rp = new RenduPanier(2, nombre, couleurEquipe, panneau);
         });
         
-        JButton pt3 = new JButton("3");
-        pt3.setBackground(Color.white);
-        pt3.setPreferredSize(new Dimension(X / 2, Y / 2));
-        pt3.setFont(fontNum);
-        pt3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    RenduPanier rp = new RenduPanier(3, nok, cok, pann);
-            }
+        JButton boutonTroisPoints = listeBoutons.get(2);
+        boutonTroisPoints.setText("3");
+        boutonTroisPoints.setFont(fontNum);
+        boutonTroisPoints.addActionListener((ActionEvent event) -> {
+            fermer();
+            RenduPanier rp = new RenduPanier(3, nombre, couleurEquipe, pann);
         });
         
-        JButton refuser = new JButton("REFUSER");
-        refuser.setBackground(Color.white);
-        refuser.setPreferredSize(new Dimension(X / 2, Y / 2));
-        refuser.setFont(new Font("Numero", Font.BOLD, 70));
-        refuser.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    Base b = new Base(pann);
-            }
+        JButton boutonRefuser = listeBoutons.get(3);
+        boutonRefuser.setText("REFUSER");
+        boutonRefuser.setFont(new Font("Numero", Font.BOLD, 70));
+        boutonRefuser.addActionListener((ActionEvent event) -> {
+            fermer();
+            Base base1 = new Base(pann);
         });
-
-        JPanel all = new JPanel();
-        all.add(pt1);
-        all.add(pt2);
-        all.add(pt3);
-        all.add(refuser);
-
-        content.repaint();
-
-        this.setContentPane(all);
-        this.setVisible(true);
     }
-
-    public void fermer() {
-        this.dispose();
-    }
-
 }

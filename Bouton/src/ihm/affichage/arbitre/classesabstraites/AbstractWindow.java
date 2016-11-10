@@ -5,10 +5,13 @@
  */
 package ihm.affichage.arbitre.classesabstraites;
 
+import ihm.affichage.arbitre.faute.Rendufaute;
 import ihm.affichage.panneau.Panneau;
+import ihm.match.Joueur;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +38,7 @@ public abstract class AbstractWindow extends JFrame {
         this.panneau = pann;
         this.couleurEquipe = couleur;
         this.nombreBoutons = nombre;
-        
+
         this.setTitle(getClass().getSimpleName());
         this.setSize(X + 20, Y + 20);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,20 +59,30 @@ public abstract class AbstractWindow extends JFrame {
             if (nombreBoutons == 1) {
                 boutonCourant.setPreferredSize(new Dimension(X, Y));
             }
-            if (nombreBoutons == 2) {
+            else if (nombreBoutons == 2) {
                 boutonCourant.setPreferredSize(new Dimension(X/2, Y));
             }
-            if (nombreBoutons == 3) {
+            else if (nombreBoutons == 3) {
                 if (i < 2) {
                     boutonCourant.setPreferredSize(new Dimension(X/2, Y/2 - 20));
                 } else {
                     boutonCourant.setPreferredSize(new Dimension(X, Y/2 - 20));
                 }
-            } else if (nombreBoutons == 4) {
-                boutonCourant.setPreferredSize(new Dimension(X/2, Y/2));
-            } else if (nombreBoutons == 6) {
-                boutonCourant.setPreferredSize(new Dimension(X/3, Y/2));
-            }
+            } else if (nombreBoutons == 5) {
+                if (i < 3) {
+                    boutonCourant.setPreferredSize(new Dimension(X/3, Y/2));
+                } else {
+                    boutonCourant.setPreferredSize(new Dimension(X/2, Y/2));                    
+                }
+            } else if (nombreBoutons == 7) {
+                if (i < 4) {
+                    boutonCourant.setPreferredSize(new Dimension(X/4, Y/2));
+                } else {
+                    boutonCourant.setPreferredSize(new Dimension(X/3, Y/2));
+                }
+            } else if (nombreBoutons > 5) {
+                boutonCourant.setPreferredSize(new Dimension(2*X/nombreBoutons, Y/2));
+            }            
             jpanel.add(boutonCourant);    
             listeBoutons.add(boutonCourant);
         }
@@ -79,5 +92,43 @@ public abstract class AbstractWindow extends JFrame {
         
     public void fermer() {
         this.dispose();
+    }
+    
+    protected void ecrireBoutonNumero(LinkedList<Joueur> liste) {
+        Font font = new Font("Joueurs", Font.BOLD, 100);
+
+        for (int i = 0; i < liste.size(); i++) {
+            Joueur joueurCourant = liste.get(i);
+            JButton boutonCourant = listeBoutons.get(i);
+            boutonCourant.setFont(font);
+            boutonCourant.setText(Integer.toString(joueurCourant.getNum()));
+        }
+    }
+
+    protected void peindreBoutonCouleur(JButton boutonCouleur) {
+        boutonCouleur.setForeground(Color.WHITE);
+        switch (couleurEquipe) {
+            case "RED":
+                boutonCouleur.setBackground(Color.RED);
+                boutonCouleur.setText("ROUGE");
+                break;
+            case "BLUE":
+                boutonCouleur.setBackground(Color.BLUE);
+                boutonCouleur.setText("BLEU");
+                break;
+            case "GREEN":
+                boutonCouleur.setBackground(Color.GREEN);
+                boutonCouleur.setText("VERT");
+                break;
+            case "BLACK":
+                boutonCouleur.setBackground(Color.BLACK);
+                boutonCouleur.setText("NOIR");
+                break;
+            default:
+                boutonCouleur.setBackground(Color.WHITE);
+                boutonCouleur.setForeground(Color.BLACK);
+                boutonCouleur.setText("BLANC");
+                break;
+        }
     }
 }

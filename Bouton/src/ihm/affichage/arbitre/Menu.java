@@ -3,21 +3,14 @@ package ihm.affichage.arbitre;
 import ihm.affichage.arbitre.base.Base;
 import ihm.affichage.arbitre.changement.RenduChangement;
 import ihm.affichage.arbitre.chronometre.Modificationchrono;
+import ihm.affichage.arbitre.classesabstraites.AbstractWindow;
 import ihm.affichage.arbitre.faute.Rendufaute;
 import ihm.affichage.arbitre.panier.RenduPanier;
 import ihm.affichage.arbitre.tempsmort.Tempsmort;
 import ihm.affichage.panneau.Panneau;
-import ihm.match.Joueur;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,127 +22,66 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author guillaumehalb
  */
-public class Menu extends JFrame {
-    
-    private Panneau panneau;
-    
-    private JPanel content = new JPanel();
-    private int X = 700;
-    private int Y = 500;
-
+public class Menu extends AbstractWindow {
     public Menu(Panneau panneau) {
+        super(panneau.getVisiteurs().getCouleur(), panneau, 6);
         
-        this.panneau = panneau;
-        
-        this.setTitle("MENU");
-        this.setSize(X + 20, Y + 20);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-
-        try {
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (Exception e) {
-            System.out.println("Problème d'affichage");
-        }
-
         Font font = new Font("Equipe", Font.BOLD, 50);
 
         // Creation de 6 boutons :
-        JButton boutonBase = new JButton("Base");
-        boutonBase.setPreferredSize(new Dimension(X / 3, Y / 2));
-        boutonBase.setBackground(Color.WHITE);
+        JButton boutonBase = listeBoutons.get(0);
+        boutonBase.setText("Base");
         boutonBase.setFont(font);
-        boutonBase.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();                
-                Base base = new Base(panneau);
-            }
+        boutonBase.addActionListener((ActionEvent event) -> {
+            fermer();
+            Base base1 = new Base(panneau);
         });
 
-        JButton boutonFaute = new JButton("Faute");
-        boutonFaute.setPreferredSize(new Dimension(X / 3, Y / 2));
-        boutonFaute.setBackground(Color.WHITE);
+        JButton boutonFaute = listeBoutons.get(1);
+        boutonFaute.setText("Faute");
         boutonFaute.setFont(font);
-        boutonFaute.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                Rendufaute rf = new Rendufaute("FAUTE", 
-                        panneau.getEquipe("GREEN").getTerrain().getFirst().getNum(),
-                        "GREEN", panneau);
-            }
+        boutonFaute.addActionListener((ActionEvent event) -> {
+            fermer();
+            Rendufaute rf = new Rendufaute("FAUTE",
+                    panneau.getEquipe(couleurEquipe).getTerrain().getFirst().getNum(),
+                    couleurEquipe, panneau);
         });
 
-        JButton boutonPoints = new JButton("Points");
-        boutonPoints.setBackground(Color.WHITE);
-        boutonPoints.setPreferredSize(new Dimension(X / 3, Y / 2));
+        JButton boutonPoints = listeBoutons.get(2);
+        boutonPoints.setText("Points");
         boutonPoints.setFont(font);
-        boutonPoints.setForeground(Color.BLACK);
-        boutonPoints.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                RenduPanier rp = new RenduPanier(1, 
-                        panneau.getEquipe("GREEN").getTerrain().getFirst().getNum(),
-                        "GREEN", panneau);
-            }
+        boutonPoints.addActionListener((ActionEvent event) -> {
+            fermer();
+            RenduPanier rp = new RenduPanier(1,
+                    panneau.getEquipe(couleurEquipe).getTerrain().getFirst().getNum(),
+                    couleurEquipe, panneau);
         });
        
-        JButton boutonChangement = new JButton("Changement");       
-        boutonChangement.setBackground(Color.WHITE);
-        boutonChangement.setPreferredSize(new Dimension(X / 3, Y / 2));
+        JButton boutonChangement = listeBoutons.get(3);
+        boutonChangement.setText("Changement");       
         boutonChangement.setFont(new Font("Equipe", Font.BOLD, 30));
-        boutonChangement.setForeground(Color.BLACK);
-        boutonChangement.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                int numeroSortant = panneau.getEquipe("GREEN").getTerrain().getFirst().getNum();
-                int numeroEntrant = panneau.getEquipe("GREEN").getBanc().getFirst().getNum();
-                RenduChangement rp = new RenduChangement(numeroSortant, 
-                        numeroEntrant, "GREEN", panneau);
-            }
+        boutonChangement.addActionListener((ActionEvent event) -> {
+            fermer();
+            int numeroSortant = panneau.getEquipe(couleurEquipe).getTerrain().getFirst().getNum();
+            int numeroEntrant = panneau.getEquipe(couleurEquipe).getBanc().getFirst().getNum();
+            RenduChangement rp = new RenduChangement(numeroSortant,
+                    numeroEntrant, couleurEquipe, panneau);
         });
         
-        JButton boutonChronometre = new JButton("Chrono");
-        boutonChronometre.setBackground(Color.WHITE);
-        boutonChronometre.setPreferredSize(new Dimension(X / 3, Y / 2));
+        JButton boutonChronometre = listeBoutons.get(4);
+        boutonChronometre.setText("Chrono");
         boutonChronometre.setFont(font);
-        boutonChronometre.setForeground(Color.BLACK);
-        boutonChronometre.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                Modificationchrono mc = new Modificationchrono(panneau);
-            }
+        boutonChronometre.addActionListener((ActionEvent event) -> {
+            fermer();
+            Modificationchrono mc = new Modificationchrono(panneau);
         });
         
-        JButton boutonTempsMort = new JButton("T-M");
-        boutonTempsMort.setBackground(Color.WHITE);
-        boutonTempsMort.setPreferredSize(new Dimension(X / 3, Y / 2));
+        JButton boutonTempsMort = listeBoutons.get(5);
+        boutonTempsMort.setText("T-M");
         boutonTempsMort.setFont(font);
-        boutonTempsMort.setForeground(Color.BLACK);
-        boutonTempsMort.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                Tempsmort tm = new Tempsmort("GREEN", panneau);
-            }
+        boutonTempsMort.addActionListener((ActionEvent event) -> {
+            fermer();
+            Tempsmort tm = new Tempsmort(couleurEquipe, panneau);
         });
-        
-        JPanel all = new JPanel();
-        all.add(boutonBase);
-        all.add(boutonFaute);
-        all.add(boutonPoints);
-        all.add(boutonChangement);
-        all.add(boutonChronometre);
-        all.add(boutonTempsMort);
-        
-
-        all.setBackground(Color.WHITE);
-
-        content.repaint();
-        this.setContentPane(all);
-        this.setVisible(true);
     }
-
-    public void fermer() {
-        this.dispose();
-    }
-    
 }

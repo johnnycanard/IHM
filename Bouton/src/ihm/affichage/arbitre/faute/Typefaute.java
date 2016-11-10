@@ -1,16 +1,10 @@
 package ihm.affichage.arbitre.faute;
 
+import ihm.affichage.arbitre.classesabstraites.AbstractWindow;
 import ihm.affichage.panneau.Panneau;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,86 +15,39 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
  *
  * @author halbg
  */
-public class Typefaute extends JFrame {
+public class Typefaute extends AbstractWindow {
+    int numeroFautif;
 
-    private Panneau pann;
-    
-    String couleur;
-    int num;
+    public Typefaute(int n, String coul, Panneau pann) {
+        super(coul, pann, 3);
+        this.numeroFautif = n;
 
-    private JPanel content = new JPanel();
-    private int X = 700;
-    private int Y = 500;
-
-    public Typefaute(int n, String c, Panneau panno) {
-
-        this.pann = panno;
-        
-        this.num = n;
-        this.couleur = c;
-
-        this.setTitle("Type Faute");
-        this.setSize(X + 20, Y + 20);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-
-        try {
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (Exception e) {
-            System.out.println("Problème d'affichage");
-        }
-
-        Font fontFaute = new Font("faute", Font.BOLD, 130);
+        Font fontFaute = new Font("faute", Font.BOLD, 80);
         Font fontSport = new Font("sport", Font.BOLD, 50);
         Font fontTech = new Font("tech", Font.BOLD, 50);
 
-        JButton faute = new JButton("FAUTE");
-        faute.setBackground(Color.white);
-        faute.setPreferredSize(new Dimension(X, Y / 2));
-        faute.setFont(fontFaute);
-        faute.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    Rendufaute r = new Rendufaute("FAUTE", num, couleur, pann);
-            }
+        JButton boutonFaute = listeBoutons.get(0);
+        boutonFaute.setText("FAUTE");
+        boutonFaute.setFont(fontFaute);
+        boutonFaute.addActionListener((ActionEvent event) -> {
+            fermer();
+            Rendufaute r = new Rendufaute("FAUTE", numeroFautif, couleurEquipe, panneau);
         });
 
-        JButton sport = new JButton("SPORTIVE");
-        sport.setBackground(Color.white);
-        sport.setPreferredSize(new Dimension(X / 2, Y / 2));
-        sport.setFont(fontSport);
-        sport.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    Rendufaute r = new Rendufaute("SPORT", num, couleur, pann);
-            }
+        JButton boutonAntiSportive = listeBoutons.get(1);
+        boutonAntiSportive.setText("SPORTIVE");
+        boutonAntiSportive.setFont(fontSport);
+        boutonAntiSportive.addActionListener((ActionEvent event) -> {
+            fermer();
+            Rendufaute r = new Rendufaute("SPORT", numeroFautif, couleurEquipe, pann);
         });
         
-        JButton tech = new JButton("TECHNIQUE");
-        tech.setBackground(Color.white);
-        tech.setPreferredSize(new Dimension(X / 2, Y / 2));
-        tech.setFont(fontTech);
-        tech.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                    fermer();
-                    Rendufaute r = new Rendufaute("TECH", num, couleur, pann);
-            }
-        });
-        
-
-        JPanel all = new JPanel();
-        all.add(faute);
-        all.add(sport);
-        all.add(tech);
-
-        content.repaint();
-
-        this.setContentPane(all);
-        this.setVisible(true);
+        JButton boutonTechnique = listeBoutons.get(2);
+        boutonTechnique.setText("TECHNIQUE");
+        boutonTechnique.setFont(fontTech);
+        boutonTechnique.addActionListener((ActionEvent event) -> {
+            fermer();
+            Rendufaute r = new Rendufaute("TECH", numeroFautif, couleurEquipe, pann);
+        });        
     }
-
-    public void fermer() {
-        this.dispose();
-    }
-
 }

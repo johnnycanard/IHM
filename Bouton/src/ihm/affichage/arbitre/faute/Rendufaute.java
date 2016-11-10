@@ -27,7 +27,7 @@ public class Rendufaute extends AbstractMenuWindows {
         super(coul, panneau, 3);
         this.typeFaute = type;
         this.numeroJoueur = num;
-
+        
         panneau.arretChronometre();
         
         validerFaute();
@@ -52,8 +52,14 @@ public class Rendufaute extends AbstractMenuWindows {
         });
 
         JButton boutonNumero = listeBoutons.get(1);
-        boutonNumero.setText(Integer.toString(numeroJoueur));
-        boutonNumero.setFont(fontNum);
+        if (numeroJoueur == - 1) {
+            boutonNumero.setText("Entraineur");
+            Font fontEntraineur = new Font("TypeFaute", Font.BOLD, 40);
+            boutonNumero.setFont(fontEntraineur);
+        } else {
+            boutonNumero.setText(Integer.toString(numeroJoueur));
+            boutonNumero.setFont(fontNum);
+        }
         boutonNumero.addActionListener((ActionEvent event) -> {
             try {
                 annulerFaute();
@@ -88,7 +94,7 @@ public class Rendufaute extends AbstractMenuWindows {
         });
     }
 
-    public void annulerFaute() throws Exception {
+    private void annulerFaute() throws Exception {
         Joueur fautif;
         try {
             fautif = panneau.getEquipe(this.couleurEquipe).getJoueurEquipe(this.numeroJoueur);
@@ -117,8 +123,12 @@ public class Rendufaute extends AbstractMenuWindows {
     /**
      * On peut donner une faute à un joueur sur le banc
     */
-    public void validerFaute() {
+    private void validerFaute() {
         Joueur fautif;
+        if (numeroJoueur == -1) {
+            panneau.getEquipe(this.couleurEquipe).incrFautesEntraineur();
+            return;
+        }
         try {
             fautif = panneau.getEquipe(this.couleurEquipe).getJoueurEquipe(this.numeroJoueur);
         } catch (Exception e) {

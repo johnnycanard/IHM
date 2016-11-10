@@ -34,31 +34,4 @@ public abstract class AbstractMenuWindows extends AbstractWindow {
         });
         jpanel.add(retour);
     }
-    
-    protected void peindreBoutonCouleur(JButton boutonCouleur) {
-        boutonCouleur.setForeground(Color.WHITE);
-        switch (couleurEquipe) {
-            case "RED":
-                boutonCouleur.setBackground(Color.RED);
-                boutonCouleur.setText("ROUGE");
-                break;
-            case "BLUE":
-                boutonCouleur.setBackground(Color.BLUE);
-                boutonCouleur.setText("BLEU");
-                break;
-            case "GREEN":
-                boutonCouleur.setBackground(Color.GREEN);
-                boutonCouleur.setText("VERT");
-                break;
-            case "BLACK":
-                boutonCouleur.setBackground(Color.BLACK);
-                boutonCouleur.setText("NOIR");
-                break;
-            default:
-                boutonCouleur.setBackground(Color.WHITE);
-                boutonCouleur.setForeground(Color.BLACK);
-                boutonCouleur.setText("BLANC");
-                break;
-        }
-    }
 }

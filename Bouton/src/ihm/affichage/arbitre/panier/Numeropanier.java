@@ -1,10 +1,9 @@
 package ihm.affichage.arbitre.panier;
 
 import ihm.affichage.arbitre.changement.RenduChangement;
-import ihm.affichage.arbitre.classesabstraites.AbstractNumero;
+import ihm.affichage.arbitre.classesabstraites.AbstractWindow;
 import ihm.affichage.panneau.Panneau;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /*
@@ -16,32 +15,30 @@ import javax.swing.JButton;
  *
  * @author halbg
  */
-public class Numeropanier extends AbstractNumero {
-    private int nombre;
+public class Numeropanier extends AbstractWindow {
+    private int nombrePoints;
     
-    private int X = 700;
-    private int Y = 500;
-
     public Numeropanier(int nombre, String couleur, Panneau panneau) {
-        super(couleur, panneau);
-	this.nombre = nombre;
+        super(couleur, panneau, 6);
+	this.nombrePoints = nombre;
 	        
-        for (int i = 0; i < 5; i++) {
+        ecrireBoutonNumero(panneau.getEquipe(couleur).getTerrain());
+        
+        for (int i = 0; i < panneau.getEquipe(couleur).getTerrain().size(); i++) {
             JButton bouton = this.listeBoutons.get(i);
             bouton.addActionListener((ActionEvent event) -> {
                 fermer();
-                RenduPanier rp = new RenduPanier(nombre, Integer.parseInt(bouton.getText()), couleur, panneau);
+                RenduPanier rp = new RenduPanier(nombre,
+                        Integer.parseInt(bouton.getText()), couleur, panneau);
             });
         }
        
-        JButton bouton = this.listeBoutons.get(5);
-        bouton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                fermer();
-                int out = panneau.getEquipe(couleur).getTerrain().getFirst().getNum();
-                int in = panneau.getEquipe(couleur).getBanc().getFirst().getNum();
-                RenduChangement renduChangement = new RenduChangement(out, in, couleur, panneau);
-            }
+        JButton boutonChangement = this.listeBoutons.get(5);
+        boutonChangement.addActionListener((ActionEvent event) -> {
+            fermer();
+            int out = panneau.getEquipe(couleur).getTerrain().getFirst().getNum();
+            int in = panneau.getEquipe(couleur).getBanc().getFirst().getNum();
+            RenduChangement renduChangement = new RenduChangement(out, in, couleur, panneau);
         });
     }
 }

@@ -4,11 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/match/Equipe.java</file>
-            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/changement/Changementsortant.java</file>
-            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/panneau/Fenetre1.java</file>
-            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/changement/Renduchangement.java</file>
-            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/test/Test.java</file>
-            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/changement/Changemententrant.java</file>
+            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/tempsmort/Tempsmort.java</file>
+            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/faute/Typefaute.java</file>
+            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/classesabstraites/AbstractWindow.java</file>
+            <file>file:/Users/guillaumehalb/Ensimag/2A/Cours/S4/IHM/IHM/JoGit/IHM/Bouton/src/ihm/affichage/arbitre/Menu.java</file>
         </group>
     </open-files>
 </project-private>
